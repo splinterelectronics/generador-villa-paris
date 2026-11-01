@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Generador Villa Paris A — Costo mensual</title>
+<style>
+  :root{
+    --bg:#f5f5f7; --card:#fff; --ink:#1d1d1f; --mute:#6e6e73; --line:#e5e5ea;
+    --c1:#0071e3; --c2:#34a853; --c3:#f29900; --c4:#8e44ad; --c5:#d93025;
+    --radius:16px;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"SF Pro Text","Segoe UI",Roboto,Helvetica,Arial,sans-serif;background:var(--bg);color:var(--ink);line-height:1.45}
+  header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+  .wrap{max-width:1180px;margin:0 auto;padding:0 20px}
+  .top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px 0;flex-wrap:wrap}
+  h1{font-size:20px;margin:0;font-weight:650;letter-spacing:-.01em}
+  h1 small{display:block;font-size:13px;color:var(--mute);font-weight:400}
+  .actions{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  button,.btn{font:inherit;font-size:14px;border:1px solid var(--line);background:#fff;color:var(--ink);padding:8px 14px;border-radius:999px;cursor:pointer}
+  button:hover{background:#f0f0f3}
+  button.primary{background:var(--c1);border-color:var(--c1);color:#fff}
+  button.primary:hover{background:#0062c4}
+  button.ghost{border:none;color:var(--c5);padding:4px 8px}
+  input,select{font:inherit;font-size:14px;border:1px solid var(--line);border-radius:10px;padding:8px 10px;width:100%;background:#fff;color:var(--ink)}
+  input:focus,select:focus{outline:2px solid rgba(0,113,227,.25);border-color:var(--c1)}
+  main{display:grid;grid-template-columns:1fr 380px;gap:20px;padding:22px 0 60px}
+  @media(max-width:960px){main{grid-template-columns:1fr}}
+  .card{background:var(--card);border-radius:var(--radius);padding:20px 22px;margin-bottom:18px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+  .card h2{display:flex;align-items:center;gap:10px;font-size:16px;margin:0 0 4px;font-weight:620}
+  .card p.hint{margin:0 0 14px;color:var(--mute);font-size:13px}
+  .num{display:inline-grid;place-items:center;width:26px;height:26px;border-radius:50%;color:#fff;font-size:13px;font-weight:700;flex:none}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:12px}
+  label{display:block;font-size:12.5px;color:var(--mute);margin-bottom:4px}
+  table{width:100%;border-collapse:collapse;font-size:14px}
+  th{text-align:left;font-size:12px;color:var(--mute);font-weight:500;padding:6px 6px;border-bottom:1px solid var(--line)}
+  td{padding:5px 6px;border-bottom:1px solid #f2f2f5;vertical-align:middle}
+  td input,td select{padding:6px 8px}
+  td.r,th.r{text-align:right}
+  .add{margin-top:10px}
+  .side{position:sticky;top:86px;align-self:start}
+  .big{font-size:34px;font-weight:700;letter-spacing:-.02em;margin:2px 0}
+  .sub{color:var(--mute);font-size:13px}
+  .kpis{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+  .kpi{background:var(--bg);border-radius:12px;padding:10px 12px}
+  .kpi b{display:block;font-size:17px}
+  .kpi span{font-size:12px;color:var(--mute)}
+  .bar{display:flex;height:14px;border-radius:7px;overflow:hidden;background:var(--line);margin:16px 0 12px}
+  .bar div{height:100%}
+  .legend div{display:flex;align-items:center;justify-content:space-between;font-size:13.5px;padding:5px 0;border-bottom:1px solid #f2f2f5}
+  .legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:8px}
+  .unit-hl{background:linear-gradient(135deg,#0071e3,#0a84ff);color:#fff;border-radius:14px;padding:14px 16px;margin-top:14px}
+  .unit-hl .sub{color:rgba(255,255,255,.8)}
+  .unit-hl b{font-size:26px}
+  .flow{display:flex;align-items:center;gap:6px;flex-wrap:wrap;font-size:12px;color:var(--mute);margin-top:10px}
+  .flow span.s{background:var(--bg);padding:4px 9px;border-radius:999px}
+  .muted{color:var(--mute)}
+  .print-only{display:none}
+  @media print{
+    header .actions, .no-print, .add, button.ghost{display:none!important}
+    body{background:#fff}
+    main{display:block}
+    .side{position:static}
+    .card{box-shadow:none;border:1px solid var(--line);break-inside:avoid}
+    input,select{border:none;padding:0}
+    .print-only{display:block}
+  }
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap top">
+    <h1>Grupo electrógeno · Urb. Villa Paris A
+      <small>Cálculo del costo mensual que el generador le genera al condominio</small></h1>
+    <div class="actions">
+      <input type="month" id="mes" style="width:auto">
+      <button onclick="guardarMes()">Guardar mes</button>
+      <select id="historial" onchange="cargarMes(this.value)" style="width:auto"><option value="">Historial…</option></select>
+      <button onclick="exportar()">Exportar</button>
+      <button onclick="document.getElementById('imp').click()">Importar</button>
+      <input type="file" id="imp" accept=".json" hidden onchange="importar(event)">
+      <button class="primary" onclick="window.print()">Imprimir / PDF</button>
+    </div>
+  </div>
+</header>
+
+<div class="wrap">
+<main>
+<section>
+
+  <!-- 1 -->
+  <div class="card">
+    <h2><span class="num" style="background:var(--c1)">1</span>Datos del generador</h2>
+    <p class="hint">Consumo según la placa o el manual del motor a la carga habitual. Si no lo sabes, usa el estimador.</p>
+    <div class="grid">
+      <div><label>Marca / modelo</label><input data-k="modelo" type="text" placeholder="Ej. Perkins 150 kVA"></div>
+      <div><label>Potencia (kVA)</label><input data-k="kva" type="number" step="any"></div>
+      <div><label>Carga promedio (%)</label><input data-k="carga" type="number" step="any"></div>
+      <div><label>Consumo promedio (L/h)</label><input data-k="lph" type="number" step="any"></div>
+    </div>
+    <div class="flow no-print">
+      <button onclick="estimarConsumo()">Estimar consumo</button>
+      <span class="muted">≈ kVA × 0,8 × (0,05 + 0,95 × carga) × 0,27 L/kWh — aproximación para motores diésel</span>
+    </div>
+  </div>
+
+  <!-- 2 -->
+  <div class="card">
+    <h2><span class="num" style="background:var(--c2)">2</span>Horas de operación del mes</h2>
+    <p class="hint">Registra cada corte de luz en que trabajó el generador. Las horas se calculan solas.</p>
+    <table>
+      <thead><tr><th>#</th><th>Fecha</th><th>Encendido</th><th>Apagado</th><th class="r">Horas</th><th>Nota</th><th></th></tr></thead>
+      <tbody id="tEventos"></tbody>
+    </table>
+    <button class="add" onclick="agregar('eventos',{fecha:'',ini:'',fin:'',nota:''})">+ Agregar corte</button>
+    <div class="grid" style="margin-top:14px">
+      <div><label>Pruebas en vacío por mes</label><input data-k="pruebas" type="number" step="1"></div>
+      <div><label>Minutos por prueba</label><input data-k="minPrueba" type="number" step="any"></div>
+      <div><label>Consumo en vacío (L/h)</label><input data-k="lphVacio" type="number" step="any"></div>
+      <div><label>Horas extra (ajuste manual)</label><input data-k="horasExtra" type="number" step="any"></div>
+    </div>
+  </div>
+
+  <!-- 3 -->
+  <div class="card">
+    <h2><span class="num" style="background:var(--c3)">3</span>Combustible</h2>
+    <p class="hint">Precio pagado por litro de diésel y costos de traerlo.</p>
+    <div class="grid">
+      <div><label>Precio diésel (USD/L)</label><input data-k="precioL" type="number" step="any"></div>
+      <div><label>Flete / traslado del mes (USD)</label><input data-k="flete" type="number" step="any"></div>
+      <div><label>Aditivos u otros (USD)</label><input data-k="aditivos" type="number" step="any"></div>
+    </div>
+  </div>
+
+  <!-- 4 -->
+  <div class="card">
+    <h2><span class="num" style="background:var(--c4)">4</span>Mantenimiento prorrateado</h2>
+    <p class="hint">Cada repuesto se reparte según su intervalo: por horas de uso o por meses de calendario.</p>
+    <table>
+      <thead><tr><th>Concepto</th><th class="r">Costo (USD)</th><th class="r">Cada</th><th>Unidad</th><th class="r">Este mes</th><th></th></tr></thead>
+      <tbody id="tMant"></tbody>
+    </table>
+    <button class="add" onclick="agregar('mant',{c:'',costo:0,cada:1,u:'meses'})">+ Agregar concepto</button>
+  </div>
+
+  <!-- 5 -->
+  <div class="card">
+    <h2><span class="num" style="background:var(--c5)">5</span>Costos fijos y fondo de reposición</h2>
+    <p class="hint">Pagos fijos mensuales y el ahorro para reemplazar el equipo al final de su vida útil.</p>
+    <table>
+      <thead><tr><th>Concepto fijo mensual</th><th class="r">USD / mes</th><th></th></tr></thead>
+      <tbody id="tFijos"></tbody>
+    </table>
+    <button class="add" onclick="agregar('fijos',{c:'',costo:0})">+ Agregar costo fijo</button>
+    <div class="grid" style="margin-top:14px">
+      <div><label>Valor de reposición (USD)</label><input data-k="valorRepo" type="number" step="any"></div>
+      <div><label>Vida útil (años)</label><input data-k="vidaAnios" type="number" step="any"></div>
+    </div>
+  </div>
+
+  <!-- 6 -->
+  <div class="card">
+    <h2><span class="num" style="background:#3a3a3c">6</span>Reparto entre propietarios</h2>
+    <p class="hint">Número de unidades del condominio y tasa de cambio para expresar en bolívares.</p>
+    <div class="grid">
+      <div><label>Número de unidades</label><input data-k="unidades" type="number" step="1"></div>
+      <div><label>Tasa BCV (Bs/USD)</label><input data-k="tasa" type="number" step="any"></div>
+      <div><label>Reparto</label>
+        <select data-k="modoReparto"><option value="igual">Partes iguales</option><option value="alicuota">Por alícuota (%)</option></select></div>
+      <div><label>Alícuota de ejemplo (%)</label><input data-k="alicuota" type="number" step="any"></div>
+    </div>
+  </div>
+</section>
+
+<!-- RESUMEN -->
+<aside class="side">
+  <div class="card">
+    <div class="sub" id="lblMes">Total del mes</div>
+    <div class="big" id="rTotal">$0,00</div>
+    <div class="sub" id="rTotalBs">Bs 0,00</div>
+
+    <div class="bar" id="rBar"></div>
+    <div class="legend" id="rLegend"></div>
+
+    <div class="kpis">
+      <div class="kpi"><b id="kHoras">0</b><span>horas de operación</span></div>
+      <div class="kpi"><b id="kLitros">0</b><span>litros consumidos</span></div>
+      <div class="kpi"><b id="kHora">$0</b><span>costo por hora</span></div>
+      <div class="kpi"><b id="kCortes">0</b><span>cortes registrados</span></div>
+    </div>
+
+    <div class="unit-hl">
+      <div class="sub" id="lblUnidad">Cada unidad paga</div>
+      <b id="rUnidad">$0,00</b>
+      <div class="sub" id="rUnidadBs">Bs 0,00</div>
+    </div>
+    <p class="sub print-only" style="margin-top:14px">Documento generado con la calculadora del grupo electrógeno · Urb. Villa Paris A</p>
+  </div>
+  <div class="no-print" style="text-align:center">
+    <button class="ghost" onclick="reiniciar()">Restablecer valores de ejemplo</button>
+  </div>
+</aside>
+</main>
+</div>
+
+<script>
+const LS_ACTUAL = 'vpa-gen-actual', LS_HIST = 'vpa-gen-historial';
+const COLORES = ['var(--c3)','var(--c4)','var(--c5)','#8e8e93'];
+
+const EJEMPLO = {
+  modelo:'', kva:150, carga:50, lph:11, pruebas:4, minPrueba:15, lphVacio:3, horasExtra:0,
+  precioL:0.5, flete:0, aditivos:0, valorRepo:25000, vidaAnios:15,
+  unidades:40, tasa:0, modoReparto:'igual', alicuota:2.5,
+  eventos:[],
+  mant:[
+    {c:'Aceite de motor + filtro de aceite', costo:120, cada:250, u:'horas'},
+    {c:'Filtro de combustible / separador', costo:45,  cada:500, u:'horas'},
+    {c:'Filtro de aire', costo:60, cada:500, u:'horas'},
+    {c:'Refrigerante', costo:50, cada:24, u:'meses'},
+    {c:'Batería de arranque', costo:180, cada:24, u:'meses'},
+    {c:'Correas y mangueras', costo:90, cada:12, u:'meses'}
+  ],
+  fijos:[
+    {c:'Servicio técnico / inspección', costo:40},
+    {c:'Operador / encendido', costo:0}
+  ]
+};
+
+let D = cargarLocal() || structuredClone(EJEMPLO);
+
+/* ---------- utilidades ---------- */
+const $ = id => document.getElementById(id);
+const n = v => { const x = parseFloat(v); return isFinite(x) ? x : 0; };
+const usd = v => '$' + v.toLocaleString('es-VE',{minimumFractionDigits:2,maximumFractionDigits:2});
+const bs  = v => 'Bs ' + v.toLocaleString('es-VE',{minimumFractionDigits:2,maximumFractionDigits:2});
+const fmt = (v,d=1) => v.toLocaleString('es-VE',{maximumFractionDigits:d});
+const esc = s => String(s??'').replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+
+function horasEvento(e){
+  if(!e.ini || !e.fin) return 0;
+  const [h1,m1]=e.ini.split(':').map(Number), [h2,m2]=e.fin.split(':').map(Number);
+  let min = (h2*60+m2) - (h1*60+m1);
+  if(min < 0) min += 1440;              // pasó la medianoche
+  return min/60;
+}
+
+/* ---------- cálculo ---------- */
+function calcular(){
+  const hCortes = D.eventos.reduce((s,e)=>s+horasEvento(e),0) + n(D.horasExtra);
+  const hPruebas = n(D.pruebas)*n(D.minPrueba)/60;
+  const horas = hCortes + hPruebas;
+  const litros = hCortes*n(D.lph) + hPruebas*n(D.lphVacio);
+  const combustible = litros*n(D.precioL) + n(D.flete) + n(D.aditivos);
+  const mant = D.mant.reduce((s,m)=>s+costoMant(m,horas),0);
+  const fijos = D.fijos.reduce((s,f)=>s+n(f.costo),0);
+  const reserva = n(D.vidaAnios)>0 ? n(D.valorRepo)/(n(D.vidaAnios)*12) : 0;
+  const total = combustible+mant+fijos+reserva;
+  return {horas,hCortes,litros,combustible,mant,fijos,reserva,total};
+}
+function costoMant(m,horas){
+  const cada = n(m.cada); if(cada<=0) return 0;
+  return m.u==='horas' ? n(m.costo)*horas/cada : n(m.costo)/cada;
+}
+
+/* ---------- render ---------- */
+function pintarTablas(){
+  $('tEventos').innerHTML = D.eventos.map((e,i)=>`<tr>
+    <td class="muted">${i+1}</td>
+    <td><input type="date" value="${esc(e.fecha)}" oninput="setF('eventos',${i},'fecha',this.value)"></td>
+    <td><input type="time" value="${esc(e.ini)}" oninput="setF('eventos',${i},'ini',this.value)"></td>
+    <td><input type="time" value="${esc(e.fin)}" oninput="setF('eventos',${i},'fin',this.value)"></td>
+    <td class="r" id="hEv${i}">${fmt(horasEvento(e),2)}</td>
+    <td><input type="text" value="${esc(e.nota)}" placeholder="Opcional" oninput="setF('eventos',${i},'nota',this.value)"></td>
+    <td><button class="ghost" title="Eliminar" onclick="quitar('eventos',${i})">✕</button></td></tr>`).join('')
+    || `<tr><td colspan="7" class="muted" style="padding:12px 6px">Sin cortes registrados este mes.</td></tr>`;
+
+  $('tMant').innerHTML = D.mant.map((m,i)=>`<tr>
+    <td><input type="text" value="${esc(m.c)}" oninput="setF('mant',${i},'c',this.value)"></td>
+    <td class="r"><input type="number" step="any" value="${m.costo}" oninput="setF('mant',${i},'costo',this.value)" style="text-align:right;max-width:100px"></td>
+    <td class="r"><input type="number" step="any" value="${m.cada}" oninput="setF('mant',${i},'cada',this.value)" style="text-align:right;max-width:80px"></td>
+    <td><select onchange="setF('mant',${i},'u',this.value)">
+      <option value="horas" ${m.u==='horas'?'selected':''}>horas</option>
+      <option value="meses" ${m.u==='meses'?'selected':''}>meses</option></select></td>
+    <td class="r" id="mM${i}"></td>
+    <td><button class="ghost" title="Eliminar" onclick="quitar('mant',${i})">✕</button></td></tr>`).join('');
+
+  $('tFijos').innerHTML = D.fijos.map((f,i)=>`<tr>
+    <td><input type="text" value="${esc(f.c)}" oninput="setF('fijos',${i},'c',this.value)"></td>
+    <td class="r"><input type="number" step="any" value="${f.costo}" oninput="setF('fijos',${i},'costo',this.value)" style="text-align:right;max-width:120px"></td>
+    <td><button class="ghost" title="Eliminar" onclick="quitar('fijos',${i})">✕</button></td></tr>`).join('');
+}
+
+function pintarResumen(){
+  const r = calcular(), tasa = n(D.tasa);
+  $('rTotal').textContent = usd(r.total);
+  $('rTotalBs').textContent = tasa>0 ? bs(r.total*tasa) : 'Ingresa la tasa BCV para ver bolívares';
+  const partes = [['Combustible',r.combustible],['Mantenimiento',r.mant],['Costos fijos',r.fijos],['Fondo de reposición',r.reserva]];
+  $('rBar').innerHTML = partes.map((p,i)=> r.total>0 ? `<div style="width:${p[1]/r.total*100}%;background:${COLORES[i]}"></div>`:'').join('');
+  $('rLegend').innerHTML = partes.map((p,i)=>`<div><span><i style="background:${COLORES[i]}"></i>${i+1}. ${p[0]}</span>
+     <span>${usd(p[1])} <span class="muted">${r.total>0?fmt(p[1]/r.total*100,0):0}%</span></span></div>`).join('');
+  $('kHoras').textContent = fmt(r.horas,1);
+  $('kLitros').textContent = fmt(r.litros,0) + ' L';
+  $('kHora').textContent = r.horas>0 ? usd(r.total/r.horas) : '—';
+  $('kCortes').textContent = D.eventos.length;
+
+  let porUnidad;
+  if(D.modoReparto==='alicuota'){ porUnidad = r.total*n(D.alicuota)/100; $('lblUnidad').textContent = `Unidad con alícuota ${fmt(n(D.alicuota),3)}% paga`; }
+  else { porUnidad = n(D.unidades)>0 ? r.total/n(D.unidades) : 0; $('lblUnidad').textContent = `Cada una de las ${n(D.unidades)} unidades paga`; }
+  $('rUnidad').textContent = usd(porUnidad);
+  $('rUnidadBs').textContent = tasa>0 ? bs(porUnidad*tasa) : '';
+
+  D.mant.forEach((m,i)=>{ const c=$('mM'+i); if(c) c.textContent = usd(costoMant(m,r.horas)); });
+  D.eventos.forEach((e,i)=>{ const c=$('hEv'+i); if(c) c.textContent = fmt(horasEvento(e),2); });
+  $('lblMes').textContent = 'Total del mes ' + nombreMes($('mes').value);
+}
+
+function nombreMes(v){
+  if(!v) return '';
+  const [y,m]=v.split('-').map(Number);
+  return new Date(y,m-1,1).toLocaleDateString('es-VE',{month:'long',year:'numeric'});
+}
+
+/* ---------- edición ---------- */
+function setF(lista,i,k,v){ D[lista][i][k] = (k==='c'||k==='u'||k==='fecha'||k==='ini'||k==='fin'||k==='nota') ? v : n(v); cambio(); }
+function agregar(lista,obj){ D[lista].push(obj); pintarTablas(); cambio(); }
+function quitar(lista,i){ D[lista].splice(i,1); pintarTablas(); cambio(); }
+function cambio(){ guardarLocal(); pintarResumen(); }
+
+function enlazarCampos(){
+  document.querySelectorAll('[data-k]').forEach(el=>{
+    const k = el.dataset.k;
+    el.value = D[k] ?? '';
+    el.addEventListener('input',()=>{ D[k] = (el.type==='number') ? n(el.value) : el.value; cambio(); });
+  });
+}
+function refrescarCampos(){ document.querySelectorAll('[data-k]').forEach(el=>{ el.value = D[el.dataset.k] ?? ''; }); }
+
+function estimarConsumo(){
+  const kw = n(D.kva)*0.8, c = Math.min(Math.max(n(D.carga),0),100)/100;
+  D.lph = Math.round(kw*(0.05+0.95*c)*0.27*10)/10;
+  D.lphVacio = Math.round(kw*0.05*0.27*10)/10 || D.lphVacio;
+  refrescarCampos(); cambio();
+}
+
+/* ---------- persistencia ---------- */
+function guardarLocal(){ try{ localStorage.setItem(LS_ACTUAL, JSON.stringify({...D, _mes:$('mes').value})); }catch(e){} }
+function cargarLocal(){ try{ return JSON.parse(localStorage.getItem(LS_ACTUAL)); }catch(e){ return null; } }
+function hist(){ try{ return JSON.parse(localStorage.getItem(LS_HIST))||{}; }catch(e){ return {}; } }
+function pintarHistorial(){
+  const h = hist();
+  $('historial').innerHTML = '<option value="">Historial…</option>' +
+    Object.keys(h).sort().reverse().map(k=>`<option value="${k}">${nombreMes(k)} — ${usd(h[k].total||0)}</option>`).join('');
+}
+function guardarMes(){
+  const m = $('mes').value; if(!m) return;
+  const h = hist(); h[m] = {...structuredClone(D), total: calcular().total};
+  try{ localStorage.setItem(LS_HIST, JSON.stringify(h)); }catch(e){}
+  pintarHistorial(); $('historial').value = m;
+}
+function cargarMes(m){
+  const h = hist(); if(!m || !h[m]) return;
+  D = structuredClone(h[m]); delete D.total; $('mes').value = m;
+  refrescarCampos(); pintarTablas(); cambio();
+}
+function exportar(){
+  const blob = new Blob([JSON.stringify({actual:D, mes:$('mes').value, historial:hist()},null,2)],{type:'application/json'});
+  const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+  a.download = `generador-villa-paris-${$('mes').value||'datos'}.json`; a.click();
+}
+function importar(ev){
+  const f = ev.target.files[0]; if(!f) return;
+  f.text().then(t=>{
+    const j = JSON.parse(t);
+    if(j.historial) try{ localStorage.setItem(LS_HIST, JSON.stringify({...hist(),...j.historial})); }catch(e){}
+    if(j.actual){ D = j.actual; }
+    if(j.mes) $('mes').value = j.mes;
+    refrescarCampos(); pintarTablas(); pintarHistorial(); cambio();
+  });
+  ev.target.value='';
+}
+function reiniciar(){
+  if(!confirm('¿Restablecer todos los valores de ejemplo? Se pierden los datos del mes actual no guardados.')) return;
+  D = structuredClone(EJEMPLO); refrescarCampos(); pintarTablas(); cambio();
+}
+
+/* ---------- inicio ---------- */
+const hoy = new Date();
+$('mes').value = D._mes || `${hoy.getFullYear()}-${String(hoy.getMonth()+1).padStart(2,'0')}`;
+$('mes').addEventListener('change', cambio);
+['eventos','mant','fijos'].forEach(k=>{ if(!Array.isArray(D[k])) D[k]=structuredClone(EJEMPLO[k]); });
+enlazarCampos(); pintarTablas(); pintarHistorial(); pintarResumen();
+</script>
+</body>
+</html>
