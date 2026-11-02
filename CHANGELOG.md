@@ -3,6 +3,13 @@
 Formato: [Versionado semántico](https://semver.org/lang/es/) — `MAYOR.MENOR.PARCHE`.
 Para publicar una versión nueva: cambia `VERSION` en `index.html`, agrega una entrada aquí y crea la etiqueta (`git tag vX.Y.Z`) o un Release en GitHub.
 
+## [2.4.0] — 2026-11-02
+### Corregido
+- **PDF / impresión:** el número de la cuota (blanco sobre verde) salía casi invisible porque no se imprimían los colores de fondo; ahora se imprimen. Las tarjetas ya no se parten entre páginas, el encabezado es claro y sin barra pegajosa, y se oculta lo que no sirve en papel (barras deslizantes, botones, avisos).
+- En el PDF los resultados van primero y los parámetros después. Al final se agrega la fecha de impresión y la versión.
+### Eliminado
+- Campo «Tasa BCV» y los montos en bolívares (también en el mensaje de WhatsApp).
+
 ## [2.3.0] — 2026-11-02
 ### Cambiado
 - Los controles editables ahora tienen color: barras con relleno y perilla grande (verde para horas, azul para kW), casillas con borde y fondo de color (azul, ámbar, índigo, verde) que se resaltan al tocarlas, y botones de potencia en azul.
