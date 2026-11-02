@@ -128,7 +128,7 @@
             </span>
           </div>
           <p class="text-[11px] text-slate-400 flex items-center gap-1.5 mt-0.5">
-            <span>Estimador oficial de costos y cuotas de condominio</span>
+            <span>Estimador de costos y cuota del generador</span>
             <span>·</span>
             <span class="text-slate-300 font-medium">75 Casas · Barquisimeto</span>
           </p>
@@ -167,9 +167,13 @@
           <div class="inline-flex self-start items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold mb-3">
             <i class="fa-solid fa-circle-check text-emerald-600"></i> <span id="chipCalib">Calibrado para Villa París A: 75 Casas · Gasoil $0.98/L · Factura RKN Supply</span>
           </div>
-          <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-tight">Presupuesto mensual de operación<br class="hidden sm:block"> y cuota por vivienda</h2>
+          <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-tight">Presupuesto mensual del generador<br class="hidden sm:block"> y cuota por vivienda</h2>
           <p class="text-slate-500 text-sm sm:text-base mt-2 max-w-xl leading-relaxed">
             Mira con transparencia cuánto cuesta encender la planta Cummins 440 kVA y por qué el gasto se divide entre <strong class="text-slate-700">combustible</strong> y <strong class="text-slate-700">reserva de mantenimiento</strong>.
+          </p>
+          <p class="mt-3 max-w-xl text-xs sm:text-sm text-emerald-900 bg-emerald-50 border border-emerald-200 rounded-xl px-3.5 py-2.5 leading-relaxed">
+            <i class="fa-solid fa-circle-info text-emerald-600 mr-1"></i>
+            <strong>Importante:</strong> este monto por casa corresponde <strong>solo a los gastos del generador</strong>. El pago mensual total de cada casa es mayor, porque incluye otros gastos del condominio que no tienen que ver con la planta.
           </p>
 
           <!-- ¿De qué está hecho el total? -->
@@ -189,16 +193,17 @@
         <div class="print-cards lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3.5">
           <!-- Cuota por casa (destacado) -->
           <div class="rounded-2xl bg-gradient-to-br from-emerald-600 to-emerald-500 text-white px-5 py-5 shadow-lg shadow-emerald-600/20 has-tip flex flex-col justify-between"
-               data-tip-title="Cuota Mensual Sugerida por Vivienda"
-               data-tip-desc="Monto exacto que le corresponde pagar a cada casa para que la urbanización cubra el 100% del diésel y la reserva técnica de repuestos del motor."
+               data-tip-title="Cuota por Vivienda (solo generador)"
+               data-tip-desc="Parte que le corresponde a cada casa de los gastos del generador únicamente: el diésel y la reserva técnica de repuestos del motor. No incluye los demás gastos del condominio."
                data-tip-formula="Presupuesto Mensual Total ÷ N° de casas">
-            <span class="block text-[11px] uppercase tracking-widest font-bold text-emerald-50/90">Cuota mensual por vivienda</span>
+            <span class="block text-[11px] uppercase tracking-widest font-bold text-emerald-50/90">Cuota por vivienda · solo generador</span>
             <div class="flex flex-wrap items-baseline gap-x-1.5 mt-2">
               <span id="bannerCuotaHome" class="text-4xl sm:text-5xl xl:text-4xl font-black tracking-tight">$87.76</span>
               <span class="text-sm text-emerald-50 font-semibold whitespace-nowrap">/ casa</span>
             </div>
             <div class="mt-2">
               <span id="bannerDailyPerHome" class="block text-xs text-emerald-50/90 font-medium">~$2.93 al día por casa</span>
+              <span class="block text-[11px] text-emerald-50/80 mt-1">No incluye otros gastos del condominio</span>
             </div>
           </div>
 
@@ -479,7 +484,7 @@
           <!-- Tarjeta 3: Presupuesto Mensual con Cuota Vivienda -->
           <div class="bg-white border-2 border-emerald-500/80 rounded-2xl p-4 shadow-xs relative overflow-hidden has-tip hover:shadow-md transition"
                data-tip-title="Presupuesto Mensual y Cuota por Vivienda"
-               data-tip-desc="Suma total del gasoil y la reserva técnica. Dividido entre las 75 casas determina la cuota sugerida por vivienda."
+               data-tip-desc="Suma total del gasoil y la reserva técnica del generador. Dividido entre las casas da la cuota del generador por vivienda; no incluye otros gastos del condominio."
                data-tip-formula="Combustible Mes + Reserva Mtto = Cuota ÷ 75 Casas">
             <div class="flex justify-between items-start">
               <span class="text-[11px] font-bold uppercase tracking-wider text-emerald-800">Presupuesto Mensual</span>
@@ -490,7 +495,7 @@
             <div id="statTotalMonthly" class="text-2xl sm:text-3xl font-black text-slate-900 mt-1.5 tracking-tight font-mono">$6,581.88</div>
             <div class="flex items-center gap-1 mt-0.5">
               <span id="statPerHomeMonthly" class="text-xs font-black text-emerald-700 font-mono">$87.76</span>
-              <span class="text-xs text-emerald-800 font-semibold">/ vivienda</span>
+              <span class="text-xs text-emerald-800 font-semibold">/ vivienda (generador)</span>
             </div>
             <div id="statDailyPerHome" class="text-[11px] text-slate-500 mt-0.5">~$2.93 al día por casa</div>
           </div>
@@ -564,7 +569,7 @@
               <h4 class="text-sm font-bold text-slate-900 flex items-center gap-2">
                 <i class="fa-solid fa-table-list text-emerald-600"></i> Comparativa de Escenarios y Déficit
               </h4>
-              <p id="txtTableSub" class="text-[11px] text-slate-500 mt-0.5">Cuota calculada para 75 casas con Gasoil a $0.98/L</p>
+              <p id="txtTableSub" class="text-[11px] text-slate-500 mt-0.5">Cuota del generador calculada para 75 casas con Gasoil a $0.98/L</p>
             </div>
             <span class="text-xs text-slate-400 font-mono bg-white px-2.5 py-1 rounded-lg border border-slate-200">Cálculo base: mes de 30 días</span>
           </div>
@@ -688,6 +693,12 @@
                 <span id="faqKw">Con la planta a 225 kW, cada una de las 75 casas dispone en promedio de <strong>3.0 kW continuos</strong>, suficiente para 1 o 2 aires acondicionados, nevera e iluminación básica.</span>
               </p>
             </div>
+            <div class="sm:col-span-2 p-3 bg-emerald-50 rounded-xl border border-emerald-200 space-y-1">
+              <span class="font-bold text-emerald-900 block text-[11px]">¿Esta es toda la cuota que paga cada casa?</span>
+              <p class="text-emerald-900/80 text-[11px] leading-relaxed">
+                No. Este monto cubre <strong>únicamente los gastos del generador</strong> (diésel y reserva de mantenimiento). El pago mensual de cada casa es mayor, porque el condominio tiene otros gastos que no tienen que ver con la planta eléctrica.
+              </p>
+            </div>
           </div>
         </div>
 
@@ -743,13 +754,12 @@
   </div>
 
   <footer class="no-print max-w-7xl mx-auto px-4 pt-6 pb-2 text-center text-[11px] text-slate-400">
-    Versión <span id="appVersion"></span> ·
-    <a class="underline hover:text-slate-600" href="https://github.com/splinterelectronics/generador-villa-paris/blob/main/CHANGELOG.md">Historial de cambios</a>
+    Versión <span id="appVersion"></span>
   </footer>
 
   <!-- Barra fija con el resultado (solo celular) -->
   <div class="no-print lg:hidden fixed bottom-0 inset-x-0 z-30 bg-white border-t border-slate-200 shadow-[0_-2px_8px_rgba(0,0,0,.06)] px-4 py-2.5 flex justify-between items-center">
-    <div><span class="block text-[10px] uppercase tracking-wider font-bold text-emerald-800">Cuota / casa</span><span id="mbCuota" class="text-lg font-black text-emerald-700 font-mono">$0.00</span></div>
+    <div><span class="block text-[10px] uppercase tracking-wider font-bold text-emerald-800">Cuota generador / casa</span><span id="mbCuota" class="text-lg font-black text-emerald-700 font-mono">$0.00</span></div>
     <div class="text-right"><span class="block text-[10px] uppercase tracking-wider font-bold text-slate-500">Total comunidad</span><span id="mbTotal" class="text-lg font-black text-slate-900 font-mono">$0.00</span></div>
   </div>
 
@@ -775,7 +785,7 @@
   </div>
 
   <script>
-    const VERSION = '2.4.4';
+    const VERSION = '2.5.0';
     // Variables de interfaz
     const inputHoursDay = document.getElementById('inputHoursDay');
     const displayHoursDay = document.getElementById('displayHoursDay');
@@ -983,7 +993,7 @@
       const mtto4hTxt = 4 * maintReservePerHour * 30;
       document.getElementById('chipCalib').innerText = `Calibrado para Villa París A: ${homes} Casas · Gasoil ${formatMoney(priceLiter)}/L · Factura RKN Supply`;
       document.getElementById('txtMonthHomes').innerText = `Mes de 30 días (${homes} casas)`;
-      document.getElementById('txtTableSub').innerText = `Cuota calculada para ${homes} casas con Gasoil a ${formatMoney(priceLiter)}/L`;
+      document.getElementById('txtTableSub').innerText = `Cuota del generador calculada para ${homes} casas con Gasoil a ${formatMoney(priceLiter)}/L`;
       document.getElementById('faqReserva').innerText = `Cada ${intervalHours} horas de uso el motor exige obligatoriamente cambio de aceite y filtros (${formatMoney(costMaint)}). Si no se reserva mes a mes (${formatMoney(mtto4hTxt / homes)}/casa con 4 h diarias), cuando toque el servicio no habrá dinero y la planta se apagará.`;
       document.getElementById('faqKw').innerHTML = `Con la planta a ${kw.toFixed(0)} kW, cada una de las ${homes} casas dispone en promedio de <strong>${(kw / homes).toFixed(1)} kW continuos</strong>, suficiente para 1 o 2 aires acondicionados, nevera e iluminación básica.`;
 
@@ -1205,13 +1215,14 @@
       const perHome = statPerHomeMonthly.innerText;
       const dailyPerHome = statDailyPerHome.innerText;
       const message = `*CÁLCULO OPERATIVOS USO GENERADOR ELÉCTRICO · URB. VILLA PARÍS A* ⚡\n\n` +
-        `🏠 *CUOTA MENSUAL SUGERIDA (${homes} CASAS):* *${perHome} al mes por casa* (${dailyPerHome})\n` +
+        `🏠 *CUOTA MENSUAL DEL GENERADOR POR CASA (${homes} CASAS):* *${perHome} al mes por casa* (${dailyPerHome})\n` +
+        `_Solo gastos del generador; no incluye otros gastos del condominio._\n` +
         `💰 *Presupuesto Total Comunidad:* ${totalMonth} al mes\n\n` +
         `📊 *Desglose Operativo Mensual:*\n` +
         `• *Combustible:* ${statFuelMonthly.innerText} (${statFuelLiters.innerText})\n` +
         `• *Reserva Mtto. (Aceite y Filtros 200h):* ${statMaintMonthly.innerText}\n` +
         `• *Régimen de uso:* ${hoursDay} hrs diarias (${hoursDay * 30} h/mes) a ${kw.toFixed(0)} kW (~${(kw/homes).toFixed(1)} kW/casa)\n\n` +
-        `💡 *Comparativa de Cuotas por Vivienda (${homes} casas):*\n` +
+        `💡 *Comparativa de cuotas del generador por vivienda (${homes} casas):*\n` +
         `• 4h (Sin fondo mtto - Riesgoso): ${tdCuotaActual4hSinMtto.innerText} / casa\n` +
         `• 4h Sostenible (Con reserva): *${tdCuotaSostenible4h.innerText} / casa*\n` +
         `• 6h Falla Habitual: *${tdCuotaHabitual6h.innerText} / casa*\n` +
