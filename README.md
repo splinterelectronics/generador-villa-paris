@@ -74,7 +74,14 @@ $$\text{Costo Integral por Hora de Generador} = \$45.00 + \$5.065 = \mathbf{\$50
 
 ---
 
-## 🛠️ Despliegue en GitHub Pages
+## 🌐 Enlaces en Vivo
+
+* **Cloudflare:** [https://generador-villa-paris.celaya-ronalt.workers.dev](https://generador-villa-paris.celaya-ronalt.workers.dev)
+* **GitHub Pages:** [https://splinterelectronics.github.io/generador-villa-paris/](https://splinterelectronics.github.io/generador-villa-paris/)
+
+---
+
+## 🛠️ Despliegue y Publicación
 
 Para publicar esta herramienta en tu repositorio `generador-villa-paris`:
 
