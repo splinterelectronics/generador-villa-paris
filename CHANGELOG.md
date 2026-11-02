@@ -3,6 +3,12 @@
 Formato: [Versionado semántico](https://semver.org/lang/es/) — `MAYOR.MENOR.PARCHE`.
 Para publicar una versión nueva: cambia `VERSION` en `index.html`, agrega una entrada aquí y crea la etiqueta (`git tag vX.Y.Z`) o un Release en GitHub.
 
+## [2.2.0] — 2026-11-02
+### Cambiado
+- Tarjeta principal rediseñada: la cuota por casa ahora es un cuadro verde destacado, el total va a su lado con el mismo alto, y el espacio vacío se aprovecha.
+- Barra nueva que muestra de qué se compone el total (combustible vs. reserva de mantenimiento), con sus montos.
+- Títulos y números más grandes y mejor adaptados al celular.
+
 ## [2.1.0] — 2026-11-02
 ### Corregido
 - **El cálculo se detenía con un error** al mover cualquier control: faltaban en el HTML los elementos `badgeCostPerHour` y `statDailyPerHome`. Las cifras de arriba, la tabla de escenarios, la alerta de déficit y el botón de WhatsApp no se actualizaban.

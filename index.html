@@ -91,45 +91,65 @@
   <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 space-y-6">
 
     <!-- Membrete Comunitario: Cuota por Casa y Presupuesto Total en Primer Plano -->
-    <div class="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-sm">
-      <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-5">
-        <div>
-          <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold mb-2">
+    <div class="relative overflow-hidden bg-gradient-to-br from-white via-white to-emerald-50/70 border border-slate-200/90 rounded-3xl p-6 sm:p-8 shadow-sm">
+      <div class="absolute -top-16 -right-16 w-56 h-56 rounded-full bg-emerald-100/50 blur-2xl pointer-events-none"></div>
+      <div class="relative grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+
+        <!-- Texto + composición del presupuesto -->
+        <div class="lg:col-span-7 flex flex-col justify-center">
+          <div class="inline-flex self-start items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold mb-3">
             <i class="fa-solid fa-circle-check text-emerald-600"></i> <span id="chipCalib">Calibrado para Villa París A: 75 Casas · Gasoil $0.98/L · Factura RKN Supply</span>
           </div>
-          <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Presupuesto Mensual de Operación y Cuota por Vivienda</h2>
-          <p class="text-slate-500 text-xs sm:text-sm mt-1 max-w-2xl">
-            Herramienta interactiva para que la comunidad conozca con transparencia cuánto cuesta encender la planta Cummins 440 kVA y por qué se divide entre <strong>Combustible</strong> y <strong>Reserva de Mantenimiento</strong>.
+          <h2 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight leading-tight">Presupuesto mensual de operación<br class="hidden sm:block"> y cuota por vivienda</h2>
+          <p class="text-slate-500 text-sm sm:text-base mt-2 max-w-xl leading-relaxed">
+            Mira con transparencia cuánto cuesta encender la planta Cummins 440 kVA y por qué el gasto se divide entre <strong class="text-slate-700">combustible</strong> y <strong class="text-slate-700">reserva de mantenimiento</strong>.
           </p>
+
+          <!-- ¿De qué está hecho el total? -->
+          <div class="mt-5 max-w-xl">
+            <div class="flex h-2.5 rounded-full overflow-hidden bg-slate-200" aria-hidden="true">
+              <div id="heroBarFuel" class="bg-sky-500 transition-all duration-300" style="width:90%"></div>
+              <div id="heroBarMaint" class="bg-amber-400 transition-all duration-300" style="width:10%"></div>
+            </div>
+            <div class="flex flex-wrap justify-between gap-x-6 gap-y-1 mt-2 text-xs text-slate-600">
+              <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-sky-500"></span>Combustible <b id="heroFuelAmt" class="font-mono text-slate-800">$0.00</b></span>
+              <span class="flex items-center gap-1.5"><span class="w-2.5 h-2.5 rounded-sm bg-amber-400"></span>Reserva de mantenimiento <b id="heroMaintAmt" class="font-mono text-slate-800">$0.00</b></span>
+            </div>
+          </div>
         </div>
 
-        <!-- Banners Grandes de Resultado Inmediato -->
-        <div class="flex flex-wrap items-center gap-3 w-full lg:w-auto">
-          <!-- Cuota por Casa (Destacado Verde) -->
-          <div class="flex-1 sm:flex-none bg-emerald-50/70 border-2 border-emerald-500/60 rounded-2xl px-5 py-3.5 shadow-xs has-tip"
+        <!-- Resultados grandes -->
+        <div class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3.5">
+          <!-- Cuota por casa (destacado) -->
+          <div class="rounded-2xl bg-gradient-to-br from-emerald-600 to-emerald-500 text-white px-5 py-5 shadow-lg shadow-emerald-600/20 has-tip flex flex-col justify-between"
                data-tip-title="Cuota Mensual Sugerida por Vivienda"
                data-tip-desc="Monto exacto que le corresponde pagar a cada casa para que la urbanización cubra el 100% del diésel y la reserva técnica de repuestos del motor."
-               data-tip-formula="Presupuesto Mensual Total ÷ 75 Casas">
-            <span class="block text-[11px] uppercase tracking-wider font-bold text-emerald-800">Cuota Mensual / Vivienda</span>
-            <div class="flex items-baseline gap-1 mt-0.5">
-              <span id="bannerCuotaHome" class="text-3xl sm:text-4xl font-black text-emerald-700 tracking-tight">$87.76</span>
-              <span class="text-xs text-emerald-800 font-semibold">/ casa</span>
+               data-tip-formula="Presupuesto Mensual Total ÷ N° de casas">
+            <span class="block text-[11px] uppercase tracking-widest font-bold text-emerald-50/90">Cuota mensual por vivienda</span>
+            <div class="flex flex-wrap items-baseline gap-x-1.5 mt-2">
+              <span id="bannerCuotaHome" class="text-4xl sm:text-5xl xl:text-4xl font-black tracking-tight">$87.76</span>
+              <span class="text-sm text-emerald-50 font-semibold whitespace-nowrap">/ casa</span>
             </div>
-            <span id="bannerDailyPerHome" class="block text-[11px] text-emerald-700/80 font-medium mt-0.5">~$2.93 al día por casa</span>
-            <span id="bannerCuotaBs" class="block text-[11px] text-emerald-800 font-semibold mt-0.5"></span>
+            <div class="mt-2">
+              <span id="bannerDailyPerHome" class="block text-xs text-emerald-50/90 font-medium">~$2.93 al día por casa</span>
+              <span id="bannerCuotaBs" class="block text-xs text-white font-bold mt-0.5"></span>
+            </div>
           </div>
 
-          <!-- Presupuesto Mensual Total -->
-          <div class="flex-1 sm:flex-none bg-slate-50 border border-slate-200 rounded-2xl px-5 py-3.5 shadow-xs has-tip"
+          <!-- Presupuesto total -->
+          <div class="rounded-2xl bg-white border border-slate-200 px-5 py-5 shadow-sm has-tip flex flex-col justify-between"
                data-tip-title="Presupuesto Mensual Total"
-               data-tip-desc="Gasto completo de la urbanización en el mes sumando el gasoil y la reserva para el cambio de filtros y aceite a las 200 horas."
+               data-tip-desc="Gasto completo de la urbanización en el mes sumando el gasoil y la reserva para el cambio de filtros y aceite."
                data-tip-formula="Gasto Combustible + Reserva Mantenimiento">
-            <span class="block text-[11px] uppercase tracking-wider font-bold text-slate-500">Presupuesto Total Comunidad</span>
-            <span id="bannerTotalMonthly" class="text-2xl sm:text-3xl font-black text-slate-900 mt-0.5 block tracking-tight">$6,581.88</span>
-            <span id="txtMonthHomes" class="block text-[11px] text-slate-500 mt-0.5">Mes de 30 días (75 casas)</span>
-            <span id="bannerTotalBs" class="block text-[11px] text-slate-600 font-semibold mt-0.5"></span>
+            <span class="block text-[11px] uppercase tracking-widest font-bold text-slate-500">Presupuesto total comunidad</span>
+            <span id="bannerTotalMonthly" class="block text-3xl sm:text-4xl xl:text-3xl font-black text-slate-900 mt-2 tracking-tight">$6,581.88</span>
+            <div class="mt-2">
+              <span id="txtMonthHomes" class="block text-xs text-slate-500">Mes de 30 días (75 casas)</span>
+              <span id="bannerTotalBs" class="block text-xs text-slate-700 font-bold mt-0.5"></span>
+            </div>
           </div>
         </div>
+
       </div>
     </div>
 
@@ -692,7 +712,7 @@
   </div>
 
   <script>
-    const VERSION = '2.1.0';
+    const VERSION = '2.2.0';
     // Variables de interfaz
     const inputHoursDay = document.getElementById('inputHoursDay');
     const displayHoursDay = document.getElementById('displayHoursDay');
@@ -904,6 +924,11 @@
       bannerCuotaHome.innerText = formatMoney(monthlyPerHome);
       bannerDailyPerHome.innerText = `~${formatMoney(dailyPerHome)} al día por casa`;
       bannerTotalMonthly.innerText = formatMoney(monthlyTotal);
+      document.getElementById('heroFuelAmt').innerText = formatMoney(monthlyFuelCost);
+      document.getElementById('heroMaintAmt').innerText = formatMoney(monthlyMaintReserve);
+      const heroPctFuel = monthlyTotal > 0 ? (monthlyFuelCost / monthlyTotal) * 100 : 100;
+      document.getElementById('heroBarFuel').style.width = heroPctFuel + '%';
+      document.getElementById('heroBarMaint').style.width = (100 - heroPctFuel) + '%';
 
       // Actualizar Tarjetas Principales
       statPerHomeMonthly.innerText = formatMoney(monthlyPerHome);
