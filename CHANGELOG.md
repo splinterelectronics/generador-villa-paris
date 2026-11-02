@@ -3,6 +3,11 @@
 Formato: [Versionado semántico](https://semver.org/lang/es/) — `MAYOR.MENOR.PARCHE`.
 Para publicar una versión nueva: cambia `VERSION` en `index.html`, agrega una entrada aquí y crea la etiqueta (`git tag vX.Y.Z`) o un Release en GitHub.
 
+## [2.7.0] — 2026-11-02
+### Agregado
+- **El consumo NO es fijo:** aviso destacado (ámbar) dentro del control de demanda que explica que el generador no gasta siempre 50 L/h: si se conectan más casas o se encienden más aparatos, la demanda sube y el consumo también. Muestra en vivo cuántos L/h gastaría si la demanda sube.
+- Tarjeta nueva «El consumo cambia según cuánta electricidad se use»: tabla con la demanda (100 a 350 kW), el consumo por hora, el gasoil por hora y la cuota por casa al mes en cada nivel, con el ajuste actual resaltado. Incluye un ejemplo («si la demanda sube a X kW, la cuota pasaría de $A a $B»).
+
 ## [2.6.0] — 2026-11-02
 ### Cambiado
 - Los datos técnicos (energía generada, rendimiento, costo por kWh, proyección a 12 meses y servicios al año) ya no ocupan el centro de la página: pasan al final, en un bloque pequeño y discreto llamado «Datos técnicos».
