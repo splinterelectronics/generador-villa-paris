@@ -3,6 +3,10 @@
 Formato: [Versionado semántico](https://semver.org/lang/es/) — `MAYOR.MENOR.PARCHE`.
 Para publicar una versión nueva: cambia `VERSION` en `index.html`, agrega una entrada aquí y crea la etiqueta (`git tag vX.Y.Z`) o un Release en GitHub.
 
+## [2.4.3] — 2026-11-02
+### Corregido
+- PDF: la tabla de escenarios usa una línea por fila (etiquetas y cifras ya no se parten ni se pegan), las tarjetas pequeñas mantienen el mismo tamaño y los parámetros empiezan en hoja nueva en vez de dejar su título solo al final de la página anterior.
+
 ## [2.4.2] — 2026-11-02
 ### Corregido
 - **PDF desde Safari:** salía descuadrado (tarjetas de cuota y total apretadas y cortadas, y la tabla de escenarios sin su última columna, «Cuota/Casa»). Safari decide el diseño con el ancho de la ventana pero imprime en el ancho del papel. Ahora el diseño de impresión es fijo y no depende del tamaño de pantalla.

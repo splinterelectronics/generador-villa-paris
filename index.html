@@ -44,7 +44,15 @@
       .print-results, .print-params { width: 100% !important; }
       .overflow-x-auto { overflow: visible !important; }
       table { font-size: 11px !important; width: 100% !important; }
-      table th, table td { padding: 6px 5px !important; }
+      table th, table td { padding: 6px 4px !important; }
+      /* Tabla: cifras en una sola línea, etiquetas sin partirse, primera columna flexible */
+      table td.text-right, table th.text-right, table td.text-center, table th.text-center { white-space: nowrap !important; }
+      table tbody { font-size: 10.5px !important; }
+      table td:first-child span { white-space: nowrap !important; display: inline-block; margin-top: 2px; }
+      /* Tarjetas pequeñas: misma altura de texto y sin partir los valores */
+      #statKwhMonthly, #statEfficiency, #statUnitCostKwh { font-size: 17px !important; white-space: nowrap !important; }
+      /* Los parámetros empiezan en hoja nueva (no dejar el título huérfano) */
+      .print-params { break-before: page; page-break-before: always; }
     }
     .has-tip {
       cursor: help;
@@ -757,7 +765,7 @@
   </div>
 
   <script>
-    const VERSION = '2.4.2';
+    const VERSION = '2.4.3';
     // Variables de interfaz
     const inputHoursDay = document.getElementById('inputHoursDay');
     const displayHoursDay = document.getElementById('displayHoursDay');
