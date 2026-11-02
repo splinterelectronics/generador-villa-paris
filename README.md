@@ -1,36 +1,91 @@
-# Generador Villa Paris A — Calculadora de costo mensual
+# ⚡ Tabla de Cálculo - VILLA PARÍS A
+### Auditoría Operativa y Financiera de la Planta Eléctrica Cummins / Stamford (440 kVA)
 
-Aplicación web (un solo archivo `index.html`, sin servidor ni dependencias) que calcula cuánto le cuesta al condominio de la **Urb. Villa Paris A** el grupo electrógeno cada mes, y cuánto le toca pagar a cada unidad.
-
-## Cómo calcula
-
-```
-Total del mes = ① Combustible + ② Mantenimiento prorrateado + ③ Costos fijos + ④ Fondo de reposición
-```
-
-| # | Componente | Fórmula |
-|---|---|---|
-| 1 | Combustible | (horas de cortes × L/h con carga + horas de prueba × L/h en vacío) × precio por litro + flete + aditivos |
-| 2 | Mantenimiento | Por horas: costo × horas del mes ÷ intervalo en horas · Por calendario: costo ÷ intervalo en meses |
-| 3 | Costos fijos | Suma de pagos mensuales (servicio técnico, operador, etc.) |
-| 4 | Fondo de reposición | Valor de reposición ÷ (vida útil en años × 12) |
-
-**Por unidad:** total ÷ número de unidades (partes iguales) o total × alícuota % (por alícuota). Con la tasa BCV se muestra también en bolívares.
-
-Las horas de cada corte se calculan a partir de la hora de encendido y apagado (cubre los cortes que pasan de medianoche).
-
-## Uso
-
-1. Abre `index.html` en el navegador (o la versión publicada).
-2. Llena los datos del generador, registra los cortes del mes y ajusta los precios.
-3. **Guardar mes** lo deja en el historial del navegador; **Exportar / Importar** mueve los datos en un archivo `.json`.
-4. **Imprimir / PDF** genera la hoja para la junta de condominio o la cartelera.
-
-Los datos se guardan solo en el navegador del equipo que se usa (localStorage). Para pasarlos a otro equipo usa Exportar / Importar.
-
-## Publicar
-
-Al ser un sitio estático funciona directamente en **GitHub Pages** (Settings → Pages → rama `main`, carpeta raíz) o en **Cloudflare Pages**.
+Herramienta analítica e interactiva diseñada para la **Asociación Civil Villa París A** (Barquisimeto, Estado Lara, Venezuela). Permite modelar el costo real de operación horaria, mensual y anual de la planta eléctrica diésel comunitaria, integrando tanto el consumo de combustible como la amortización lineal obligatoria del mantenimiento mayor según el régimen de uso.
 
 ---
-TUR1NG · LEVELMATIC
+
+## 📋 Diagnóstico y Justificación Técnica
+
+### 1. Régimen de Trabajo y Consumo
+* **Equipo:** Generador Diésel Cummins / Stamford de 440 kVA (352 kW continuo con factor de potencia 0.8).
+* **Demanda Residencial Promedio:** 220 kVA (~176 kW), lo que representa el 50% de la capacidad de la máquina.
+* **Tasa de Consumo:** De acuerdo con la curva técnica del fabricante (30–34 L/h a 150 kW y 42–47 L/h a 200 kW), a 176 kW el consumo estándar verificado se sitúa en **45 Litros/hora**.
+* **Precio Unitario del Diésel:** $1.00 / Litro.
+* **Costo Horario de Combustible:**  
+  45 L/h × $1.00/L = **$45.00 / hora**
+
+![Tabla de Consumo Cummins Stamford 440 kVA](docs/tabla-consumo-cummins-440kva.jpg)
+
+### 2. Soporte Oficial del Mantenimiento Mayor (Factura RKN Supply FVSER/2026/00452)
+El servicio mayor se ejecuta estrictamente cada **200 horas** de funcionamiento:
+
+| Descripción del Insumo / Servicio | Cantidad | P. Unitario | Subtotal |
+| :--- | :---: | :---: | :---: |
+| Lubricante 15W40 Shell Rotella T-4 | 44 L | $12.50 | $550.00 |
+| Filtro de Combustible FS1000 Fleetguard | 2 und | $58.00 | $116.00 |
+| Filtro de Aceite LF9009 Fleetguard | 1 und | $94.00 | $94.00 |
+| Filtro Trampa de Agua WF2076 Fleetguard | 1 und | $65.00 | $65.00 |
+| Mano de obra especializada (>438 kVA) | 1 serv | $188.00 | $188.00 |
+| **Total por ciclo de 200 horas** | — | — | **$1,013.00** |
+
+![Factura RKN Supply FVSER/2026/00452](docs/factura-rkn-supply-2026.jpg)
+
+### 3. Modelo Matemático de Reserva
+Para evitar derrames presupuestarios o paradas forzadas por falta de repuestos, el fondo de mantenimiento se provisiona por hora consumida:
+
+$$\text{Costo Horario de Mantenimiento} = \frac{\$1,013.00}{200\text{ h}} = \mathbf{\$5.065\text{ / hora}}$$
+
+$$\text{Costo Integral por Hora de Generador} = \$45.00 + \$5.065 = \mathbf{\$50.065\text{ / hora}}$$
+
+---
+
+## 📊 Matriz Comparativa de Escenarios (Base: Mes de 30 días)
+
+| Parámetro | 1. Recaudo Actual (4h s/mtto) | 2. Operación Sostenible (4h) | 3. Falla Habitual (6h) | 4. Falla Severa (7h) |
+| :--- | :---: | :---: | :---: | :---: |
+| **Horas de Uso Diario** | 4 h/día | 4 h/día | 6 h/día | 7 h/día |
+| **Horas Acumuladas/Mes** | 120 h | 120 h | 180 h | 210 h |
+| **Frecuencia de Mantenimiento** | Cada ~50 días | Cada ~50 días | Cada ~33 días | Cada ~28 días |
+| **Gasto Mensual Gasoil** | $5,400.00 | $5,400.00 | $8,100.00 | $9,450.00 |
+| **Reserva Mensual Mtto.** | $0.00 *(Descubierto)* | $607.80 | $911.70 | $1,063.65 |
+| **Presupuesto Total Mensual** | **$5,400.00** | **$6,007.80** | **$9,011.70** | **$10,513.65** |
+| **Déficit Mensual vs Recaudo Actual** | $0.00 | **-$607.80** | **-$3,611.70** | **-$5,113.65** |
+| **Cuota Mensual (Base: 50 casas)** | $108.00 / casa | $120.16 / casa | $180.24 / casa | $210.28 / casa |
+| **Cuota Mensual (Base: 60 casas)** | $90.00 / casa | $100.13 / casa | $150.20 / casa | $175.23 / casa |
+
+---
+
+## 🚀 Funcionalidades de la Aplicación
+
+1. **Simulador Paramétrico en Tiempo Real:** Control deslizante de horas diarias (1 h a 24 h), precio del combustible, consumo (L/h), intervalo y costo del servicio.
+2. **Distribución Automática de Alícuotas:** Cálculo dinámico de la cuota mensual sugerida por vivienda según el censo de casas activas.
+3. **Módulo de Difusión para WhatsApp:** Genera un mensaje formateado con viñetas y totales listo para pegar en el grupo de copropietarios.
+4. **Modo Imprimible / Exportable a PDF:** Formato limpio y libre de elementos interactivos para carteleras o actas de asamblea.
+5. **Arquitectura Zero-Dependency:** Archivo único (`index.html`) con interfaz basada en Tailwind CSS y Font Awesome cargados vía CDN.
+
+---
+
+## 🛠️ Despliegue en GitHub Pages
+
+Para publicar esta herramienta en tu repositorio `generador-villa-paris`:
+
+1. Clona el repositorio o accede a la raíz de tu proyecto:
+   ```bash
+   git clone https://github.com/splinterelectronics/generador-villa-paris.git
+   cd generador-villa-paris
+   ```
+2. Asegúrate de que los archivos `index.html` y `README.md` estén en la carpeta principal.
+3. Envía los cambios a la rama principal:
+   ```bash
+   git add index.html README.md docs/
+   git commit -m "docs: balance auditado y aplicacion calculadora"
+   git branch -M main
+   git push -u origin main
+   ```
+4. En GitHub, ve a **Settings** > **Pages** > **Build and deployment**.
+5. Selecciona la rama **`main`**, carpeta **`/ (root)`** y haz clic en **Save**.
+6. En un minuto el aplicativo estará disponible en:
+   ```text
+   https://splinterelectronics.github.io/generador-villa-paris/
+   ```
