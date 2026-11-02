@@ -1,4 +1,4 @@
-# ⚡ Tabla de Cálculo - VILLA PARÍS A
+# ⚡ Cálculo Operativos Uso Generador Eléctrico — Urb. Villa París A
 ### Auditoría Operativa y Financiera de la Planta Eléctrica Cummins / Stamford (440 kVA)
 
 Herramienta analítica e interactiva diseñada para la **Asociación Civil Villa París A** (Barquisimeto, Estado Lara, Venezuela). Permite modelar el costo real de operación horaria, mensual y anual de la planta eléctrica diésel comunitaria, integrando tanto el consumo de combustible como la amortización lineal obligatoria del mantenimiento mayor según el régimen de uso.
