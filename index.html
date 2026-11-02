@@ -35,6 +35,16 @@
       .rounded-2xl, .rounded-3xl, tr { break-inside: avoid; page-break-inside: avoid; }
       input::-webkit-inner-spin-button, input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
       .shadow-lg, .shadow-sm, .shadow-xs { box-shadow: none !important; }
+      /* El diseño de impresión NO depende del ancho de pantalla: Safari decide los
+         breakpoints con la ventana pero maqueta en el ancho del papel, y se descuadraba. */
+      .print-hero { display: flex !important; flex-direction: column !important; gap: 16px !important; }
+      .print-hero > * { width: 100% !important; grid-column: auto !important; }
+      .print-cards { display: grid !important; grid-template-columns: 1fr 1fr !important; gap: 12px !important; }
+      .print-3cols { display: grid !important; grid-template-columns: repeat(3, 1fr) !important; }
+      .print-results, .print-params { width: 100% !important; }
+      .overflow-x-auto { overflow: visible !important; }
+      table { font-size: 11px !important; width: 100% !important; }
+      table th, table td { padding: 6px 5px !important; }
     }
     .has-tip {
       cursor: help;
@@ -132,7 +142,7 @@
     <!-- Membrete Comunitario: Cuota por Casa y Presupuesto Total en Primer Plano -->
     <div class="relative overflow-hidden bg-gradient-to-br from-white via-white to-emerald-50/70 border border-slate-200/90 rounded-3xl p-6 sm:p-8 shadow-sm">
       <div class="no-print absolute -top-16 -right-16 w-56 h-56 rounded-full bg-emerald-100/50 blur-2xl pointer-events-none"></div>
-      <div class="relative grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
+      <div class="print-hero relative grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
 
         <!-- Texto + composición del presupuesto -->
         <div class="lg:col-span-7 flex flex-col justify-center">
@@ -158,7 +168,7 @@
         </div>
 
         <!-- Resultados grandes -->
-        <div class="lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3.5">
+        <div class="print-cards lg:col-span-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-3.5">
           <!-- Cuota por casa (destacado) -->
           <div class="rounded-2xl bg-gradient-to-br from-emerald-600 to-emerald-500 text-white px-5 py-5 shadow-lg shadow-emerald-600/20 has-tip flex flex-col justify-between"
                data-tip-title="Cuota Mensual Sugerida por Vivienda"
@@ -675,7 +685,7 @@
         </h3>
         <span class="text-xs text-slate-500 font-medium bg-slate-100 px-2.5 py-1 rounded-lg border border-slate-200">Ciclo Obligatorio: Cada 200 Horas</span>
       </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3 text-xs">
+      <div class="print-3cols grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-3 text-xs">
         <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
           <span class="text-slate-500 block font-medium">Aceite 15W40 Rotella T-4</span>
           <span class="text-slate-900 font-bold block mt-1">44 L × $12.50 = $550.00</span>
@@ -747,7 +757,7 @@
   </div>
 
   <script>
-    const VERSION = '2.4.1';
+    const VERSION = '2.4.2';
     // Variables de interfaz
     const inputHoursDay = document.getElementById('inputHoursDay');
     const displayHoursDay = document.getElementById('displayHoursDay');
