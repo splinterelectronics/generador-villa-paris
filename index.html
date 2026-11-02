@@ -4,6 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cálculo Operativos Uso Generador Eléctrico · Urb. Villa París A</title>
+  <meta name="description" content="Calcula cuánto cuesta operar el generador de Villa París A y cuánto le toca a cada casa según las horas de uso.">
+  <meta name="theme-color" content="#0f172a">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Generador Villa París A — ¿Cuánto nos cuesta?">
+  <meta property="og:description" content="Mueve las horas de uso y mira cómo cambia la cuota por casa.">
   <link rel="icon" type="image/svg+xml" href="docs/logo-eiffel-a.svg">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -67,7 +72,7 @@
       <div class="flex items-center gap-2 no-print flex-wrap">
         <div class="px-2.5 py-1 rounded-full bg-emerald-500/15 border border-emerald-500/40 text-emerald-400 text-xs font-medium flex items-center gap-1.5">
           <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-          <span>Nube en Vivo</span>
+          <span>Cálculo en vivo</span>
         </div>
         <button id="btnWhatsapp" class="px-3.5 py-1.5 bg-emerald-600 hover:bg-emerald-500 text-white rounded-xl text-xs font-semibold transition flex items-center gap-1.5 shadow-sm">
           <i class="fa-brands fa-whatsapp text-sm"></i>
@@ -90,7 +95,7 @@
       <div class="flex flex-col lg:flex-row justify-between items-start lg:items-center gap-5">
         <div>
           <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-50 border border-emerald-200 text-emerald-800 text-xs font-semibold mb-2">
-            <i class="fa-solid fa-circle-check text-emerald-600"></i> Calibrado para Villa París A: 75 Casas · Gasoil $0.98/L · Factura RKN Supply
+            <i class="fa-solid fa-circle-check text-emerald-600"></i> <span id="chipCalib">Calibrado para Villa París A: 75 Casas · Gasoil $0.98/L · Factura RKN Supply</span>
           </div>
           <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Presupuesto Mensual de Operación y Cuota por Vivienda</h2>
           <p class="text-slate-500 text-xs sm:text-sm mt-1 max-w-2xl">
@@ -111,6 +116,7 @@
               <span class="text-xs text-emerald-800 font-semibold">/ casa</span>
             </div>
             <span id="bannerDailyPerHome" class="block text-[11px] text-emerald-700/80 font-medium mt-0.5">~$2.93 al día por casa</span>
+            <span id="bannerCuotaBs" class="block text-[11px] text-emerald-800 font-semibold mt-0.5"></span>
           </div>
 
           <!-- Presupuesto Mensual Total -->
@@ -120,7 +126,8 @@
                data-tip-formula="Gasto Combustible + Reserva Mantenimiento">
             <span class="block text-[11px] uppercase tracking-wider font-bold text-slate-500">Presupuesto Total Comunidad</span>
             <span id="bannerTotalMonthly" class="text-2xl sm:text-3xl font-black text-slate-900 mt-0.5 block tracking-tight">$6,581.88</span>
-            <span class="block text-[11px] text-slate-500 mt-0.5">Mes de 30 días (75 casas)</span>
+            <span id="txtMonthHomes" class="block text-[11px] text-slate-500 mt-0.5">Mes de 30 días (75 casas)</span>
+            <span id="bannerTotalBs" class="block text-[11px] text-slate-600 font-semibold mt-0.5"></span>
           </div>
         </div>
       </div>
@@ -339,6 +346,17 @@
               </span>
             </div>
 
+            <div class="p-3.5 rounded-xl bg-sky-50/70 border border-sky-200 flex items-center justify-between text-xs">
+              <span class="text-sky-900 font-semibold flex items-center gap-1.5"><i class="fa-solid fa-clock text-sky-600"></i> Cada hora encendida cuesta (gasoil + reserva):</span>
+              <span id="badgeCostPerHour" class="font-black text-sky-800 bg-white px-2 py-0.5 rounded-lg border border-sky-300 font-mono">$0.00 / h</span>
+            </div>
+
+            <div class="border-t border-slate-100 pt-4">
+              <label for="inputTasa" class="font-bold text-slate-700 block mb-1">Tasa BCV (Bs por USD) <span class="font-normal text-slate-400 text-xs">— opcional, para ver bolívares</span></label>
+              <input type="number" id="inputTasa" value="" step="any" min="0" placeholder="Ej. 40.50"
+                class="block w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 font-bold font-mono">
+            </div>
+
           </div>
         </div>
       </div>
@@ -395,6 +413,7 @@
               <span id="statPerHomeMonthly" class="text-xs font-black text-emerald-700 font-mono">$87.76</span>
               <span class="text-xs text-emerald-800 font-semibold">/ vivienda</span>
             </div>
+            <div id="statDailyPerHome" class="text-[11px] text-slate-500 mt-0.5">~$2.93 al día por casa</div>
           </div>
 
         </div>
@@ -466,7 +485,7 @@
               <h4 class="text-sm font-bold text-slate-900 flex items-center gap-2">
                 <i class="fa-solid fa-table-list text-emerald-600"></i> Comparativa de Escenarios y Déficit
               </h4>
-              <p class="text-[11px] text-slate-500 mt-0.5">Cuota calculada para 75 casas con Gasoil a $0.98/L</p>
+              <p id="txtTableSub" class="text-[11px] text-slate-500 mt-0.5">Cuota calculada para 75 casas con Gasoil a $0.98/L</p>
             </div>
             <span class="text-xs text-slate-400 font-mono bg-white px-2.5 py-1 rounded-lg border border-slate-200">Cálculo base: mes de 30 días</span>
           </div>
@@ -515,7 +534,7 @@
                 <!-- Escenario 3: 6h Falla Habitual -->
                 <tr class="hover:bg-slate-50 text-slate-800 has-tip transition"
                     data-tip-title="Escenario 6h Falla Habitual"
-                    data-tip-desc="Cortes frecuentes de 6 horas diarias. Si se encienden 6h cobrando solo 4h, se produce un déficit de más de $3,200 al mes.">
+                    data-tip-desc="Cortes frecuentes de 6 horas diarias. Si se encienden 6h cobrando solo 4h, se produce un déficit mensual importante (mira la alerta de abajo).">
                   <td class="px-4 py-3 font-sans font-medium text-slate-800">
                     6h Habitual <span class="text-[10px] text-sky-700 bg-sky-50 px-1.5 py-0.5 rounded border border-sky-200 font-semibold">Falla real</span>
                   </td>
@@ -581,13 +600,13 @@
             <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
               <span class="font-bold text-slate-800 block text-[11px]">¿Por qué debemos pagar Reserva de Mtto?</span>
               <p class="text-slate-600 text-[11px] leading-relaxed">
-                Cada 200 horas de uso el motor exige obligatoriamente cambio de 44L de aceite y 4 filtros ($1,013). Si no se reserva mes a mes ($8.10/casa), cuando toque el servicio no habrá dinero y la planta se apagará.
+                <span id="faqReserva">Cada 200 horas de uso el motor exige obligatoriamente cambio de 44L de aceite y 4 filtros ($1,013). Si no se reserva mes a mes ($8.10/casa), cuando toque el servicio no habrá dinero y la planta se apagará.</span>
               </p>
             </div>
             <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 space-y-1">
               <span class="font-bold text-slate-800 block text-[11px]">¿Cuánto consume cada casa en electricidad?</span>
               <p class="text-slate-600 text-[11px] leading-relaxed">
-                Con la planta a 225 kW, cada una de las 75 casas dispone en promedio de <strong>3.0 kW continuos</strong>, suficiente para 1 o 2 aires acondicionados, nevera e iluminación básica.
+                <span id="faqKw">Con la planta a 225 kW, cada una de las 75 casas dispone en promedio de <strong>3.0 kW continuos</strong>, suficiente para 1 o 2 aires acondicionados, nevera e iluminación básica.</span>
               </p>
             </div>
           </div>
@@ -640,6 +659,17 @@
 
   </main>
 
+  <footer class="no-print max-w-7xl mx-auto px-4 pt-6 pb-2 text-center text-[11px] text-slate-400">
+    Versión <span id="appVersion"></span> ·
+    <a class="underline hover:text-slate-600" href="https://github.com/splinterelectronics/generador-villa-paris/blob/main/CHANGELOG.md">Historial de cambios</a>
+  </footer>
+
+  <!-- Barra fija con el resultado (solo celular) -->
+  <div class="no-print lg:hidden fixed bottom-0 inset-x-0 z-30 bg-white border-t border-slate-200 shadow-[0_-2px_8px_rgba(0,0,0,.06)] px-4 py-2.5 flex justify-between items-center">
+    <div><span class="block text-[10px] uppercase tracking-wider font-bold text-emerald-800">Cuota / casa</span><span id="mbCuota" class="text-lg font-black text-emerald-700 font-mono">$0.00</span></div>
+    <div class="text-right"><span class="block text-[10px] uppercase tracking-wider font-bold text-slate-500">Total comunidad</span><span id="mbTotal" class="text-lg font-black text-slate-900 font-mono">$0.00</span></div>
+  </div>
+
   <!-- Ventana Emergente Flotante (Tooltip Popover Inteligente) -->
   <div id="appTooltip" class="fixed z-50 hidden pointer-events-none transition-opacity duration-150 max-w-xs sm:max-w-sm w-80 p-3.5 bg-slate-900/95 border border-slate-700 rounded-2xl shadow-2xl backdrop-blur-md text-slate-200">
     <div class="flex items-center gap-2 mb-1.5 pb-1.5 border-b border-slate-800">
@@ -662,6 +692,7 @@
   </div>
 
   <script>
+    const VERSION = '2.1.0';
     // Variables de interfaz
     const inputHoursDay = document.getElementById('inputHoursDay');
     const displayHoursDay = document.getElementById('displayHoursDay');
@@ -682,6 +713,7 @@
     const inputCostoMantenimiento = document.getElementById('inputCostoMantenimiento');
     const inputIntervaloHoras = document.getElementById('inputIntervaloHoras');
     const inputViviendas = document.getElementById('inputViviendas');
+    const inputTasa = document.getElementById('inputTasa');
 
     // Banners Superiores
     const bannerCuotaHome = document.getElementById('bannerCuotaHome');
@@ -781,6 +813,9 @@
       return 50.8;
     }
 
+    const bsFmt = v => 'Bs ' + v.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    let lastCalc = { perHome: 0, deficit6h: 0 };
+
     function formatMoney(val) {
       return '$' + val.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
@@ -828,6 +863,7 @@
       const costMaint = parseFloat(inputCostoMantenimiento.value) || 0;
       const intervalHours = parseFloat(inputIntervaloHoras.value) || 200;
       const homes = parseInt(inputViviendas.value, 10) || 75;
+      const tasa = parseFloat(inputTasa.value) || 0;
 
       displayHoursDay.innerText = `${hoursDay.toFixed(1)} hrs/día`;
 
@@ -849,6 +885,20 @@
       const monthlyTotal = monthlyFuelCost + monthlyMaintReserve;
       const monthlyPerHome = monthlyTotal / homes;
       const dailyPerHome = monthlyPerHome / 30;
+
+      // Bolívares (opcional) y barra del celular
+      document.getElementById('bannerCuotaBs').innerText = tasa > 0 ? `≈ ${bsFmt(monthlyPerHome * tasa)} / casa` : '';
+      document.getElementById('bannerTotalBs').innerText = tasa > 0 ? `≈ ${bsFmt(monthlyTotal * tasa)}` : '';
+      document.getElementById('mbCuota').innerText = formatMoney(monthlyPerHome);
+      document.getElementById('mbTotal').innerText = formatMoney(monthlyTotal);
+
+      // Textos que dependían de números fijos: ahora siguen a los datos
+      const mtto4hTxt = 4 * maintReservePerHour * 30;
+      document.getElementById('chipCalib').innerText = `Calibrado para Villa París A: ${homes} Casas · Gasoil ${formatMoney(priceLiter)}/L · Factura RKN Supply`;
+      document.getElementById('txtMonthHomes').innerText = `Mes de 30 días (${homes} casas)`;
+      document.getElementById('txtTableSub').innerText = `Cuota calculada para ${homes} casas con Gasoil a ${formatMoney(priceLiter)}/L`;
+      document.getElementById('faqReserva').innerText = `Cada ${intervalHours} horas de uso el motor exige obligatoriamente cambio de aceite y filtros (${formatMoney(costMaint)}). Si no se reserva mes a mes (${formatMoney(mtto4hTxt / homes)}/casa con 4 h diarias), cuando toque el servicio no habrá dinero y la planta se apagará.`;
+      document.getElementById('faqKw').innerHTML = `Con la planta a ${kw.toFixed(0)} kW, cada una de las ${homes} casas dispone en promedio de <strong>${(kw / homes).toFixed(1)} kW continuos</strong>, suficiente para 1 o 2 aires acondicionados, nevera e iluminación básica.`;
 
       // Actualizar Banners Superiores
       bannerCuotaHome.innerText = formatMoney(monthlyPerHome);
@@ -933,6 +983,7 @@
 
       // Déficit contra recaudo actual de 4h sin mtto
       const currentRecaudo = gasoil4h;
+      lastCalc = { perHome: monthlyPerHome, deficit6h: total6h - gasoil4h };
       const deficit = monthlyTotal - currentRecaudo;
       const deficitPerHome = deficit / homes;
 
@@ -1035,7 +1086,7 @@
       calculate();
     });
 
-    [inputHoursDay, inputPrecioLitro, inputCostoMantenimiento, inputIntervaloHoras, inputViviendas].forEach(elem => {
+    [inputHoursDay, inputPrecioLitro, inputCostoMantenimiento, inputIntervaloHoras, inputViviendas, inputTasa].forEach(elem => {
       elem.addEventListener('input', () => {
         onKwChanged();
       });
@@ -1050,6 +1101,7 @@
       inputCostoMantenimiento.value = 1013.00;
       inputIntervaloHoras.value = 200;
       inputViviendas.value = 75;
+      inputTasa.value = '';
       onKwChanged();
       showToast('Restablecido a 75 casas, $0.98/L y 4h');
     });
@@ -1061,6 +1113,7 @@
       const totalMonth = statTotalMonthly.innerText;
       const perHome = statPerHomeMonthly.innerText;
       const dailyPerHome = statDailyPerHome.innerText;
+      const tasa = parseFloat(inputTasa.value) || 0;
 
       const message = `*CÁLCULO OPERATIVOS USO GENERADOR ELÉCTRICO · URB. VILLA PARÍS A* ⚡\n\n` +
         `🏠 *CUOTA MENSUAL SUGERIDA (${homes} CASAS):* *${perHome} al mes por casa* (${dailyPerHome})\n` +
@@ -1074,7 +1127,8 @@
         `• 4h Sostenible (Con reserva): *${tdCuotaSostenible4h.innerText} / casa*\n` +
         `• 6h Falla Habitual: *${tdCuotaHabitual6h.innerText} / casa*\n` +
         `• 7h Contingencia Severa: *${tdCuotaCritico7h.innerText} / casa*\n\n` +
-        `_Nota: La recaudación actual de 4h sin fondo de mantenimiento acumula un déficit de más de $3,200/mes si se opera 6 horas._`;
+        (tasa > 0 ? `\n🇻🇪 *En bolívares (tasa ${tasa}):* ≈ ${bsFmt(lastCalc.perHome * tasa)} por casa al mes\n` : '') +
+      `\n_Nota: Si se opera 6 horas diarias cobrando solo 4 h sin fondo de mantenimiento, el déficit es de ${formatMoney(lastCalc.deficit6h)} al mes._`;
 
       navigator.clipboard.writeText(message).then(() => {
         showToast('¡Resumen para WhatsApp copiado al portapapeles!');
@@ -1092,6 +1146,7 @@
     }
 
     // Inicializar
+    document.getElementById('appVersion').innerText = VERSION;
     onKwChanged();
     setupTooltips();
   </script>

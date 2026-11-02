@@ -104,3 +104,7 @@ Para publicar esta herramienta en tu repositorio `generador-villa-paris`:
    ```text
    https://splinterelectronics.github.io/generador-villa-paris/
    ```
+
+---
+
+**Versiones:** consulta el [historial de cambios](CHANGELOG.md). La versión actual se ve al pie de la página.
