@@ -1,0 +1,16 @@
+{
+  "name": "Generador Villa París A — Costo mensual",
+  "short_name": "Generador VPA",
+  "description": "Calcula cuánto cuesta el generador de Villa París A y cuánto le toca a cada casa.",
+  "lang": "es",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

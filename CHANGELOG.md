@@ -3,6 +3,11 @@
 Formato: [Versionado semántico](https://semver.org/lang/es/) — `MAYOR.MENOR.PARCHE`.
 Para publicar una versión nueva: cambia `VERSION` en `index.html`, agrega una entrada aquí y crea la etiqueta (`git tag vX.Y.Z`) o un Release en GitHub.
 
+## [2.8.0] — 2026-11-02
+### Agregado
+- Icono de la aplicación y favicon: torre verde con destello eléctrico sobre fondo oscuro, igual al logo del encabezado. Incluye `favicon.svg`, `favicon.ico` (16/32/48 px), `apple-touch-icon.png` (iPhone/iPad), iconos de 192 y 512 px (incluido uno «maskable» para Android) y `site.webmanifest`, de modo que la página se puede agregar a la pantalla de inicio con su icono y nombre.
+- Imagen de vista previa (`og-image.png`) para cuando se comparte el enlace por WhatsApp u otras redes.
+
 ## [2.7.0] — 2026-11-02
 ### Agregado
 - **El consumo NO es fijo:** aviso destacado (ámbar) dentro del control de demanda que explica que el generador no gasta siempre 50 L/h: si se conectan más casas o se encienden más aparatos, la demanda sube y el consumo también. Muestra en vivo cuántos L/h gastaría si la demanda sube.
