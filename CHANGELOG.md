@@ -3,6 +3,14 @@
 Formato: [Versionado semántico](https://semver.org/lang/es/) — `MAYOR.MENOR.PARCHE`.
 Para publicar una versión nueva: cambia `VERSION` en `index.html`, agrega una entrada aquí y crea la etiqueta (`git tag vX.Y.Z`) o un Release en GitHub.
 
+## [2.9.0] — 2026-11-02
+### Mejorado (iPhone y celulares)
+- Encabezado compacto en el celular: ya no ocupa casi un tercio de la pantalla ni se queda fijo tapando el contenido. Muestra logo, título, y dos botones de ancho completo («Copiar para WhatsApp» e «Imprimir PDF»). Se ocultan el subtítulo y el distintivo «Cálculo en vivo», que se siguen viendo en pantallas más grandes.
+- La barra fija de abajo (cuota y total) respeta el borde inferior del iPhone (`viewport-fit=cover` y área segura) y el encabezado respeta la muesca superior.
+- Las etiquetas «4.0 hrs/día», «225 kW», «$0.98 USD», «75 casas», «$5.07 / hora de uso» y «$54.85 / h» ya no se parten en dos renglones.
+- El título «Parámetros de Operación» y el botón «Restablecer» se acomodan en columna en vez de apretarse.
+- Se quitan en el celular dos etiquetas decorativas de las tablas («Cálculo base: mes de 30 días», «Ciclo obligatorio») que ocupaban espacio.
+
 ## [2.8.1] — 2026-11-02
 ### Cambiado
 - El icono, el favicon, la imagen para compartir y el logo del encabezado ahora reproducen el **logo real de la urbanización**: la «A» caligráfica plateada sobre fondo azul marino, con el adorno curvo del travesaño y de la base. Antes usaban una torre verde que era solo una interpretación.
