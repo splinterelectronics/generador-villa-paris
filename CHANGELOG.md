@@ -3,6 +3,10 @@
 Formato: [Versionado semántico](https://semver.org/lang/es/) — `MAYOR.MENOR.PARCHE`.
 Para publicar una versión nueva: cambia `VERSION` en `index.html`, agrega una entrada aquí y crea la etiqueta (`git tag vX.Y.Z`) o un Release en GitHub.
 
+## [2.4.1] — 2026-11-02
+### Corregido
+- Las vistas previas de Cloudflare para las ramas fallaban con «missing a `previews` block». Se agrega `wrangler.jsonc` (con `previews`) y `.assetsignore` (para no publicar README, CHANGELOG ni la configuración).
+
 ## [2.4.0] — 2026-11-02
 ### Corregido
 - **PDF / impresión:** el número de la cuota (blanco sobre verde) salía casi invisible porque no se imprimían los colores de fondo; ahora se imprimen. Las tarjetas ya no se parten entre páginas, el encabezado es claro y sin barra pegajosa, y se oculta lo que no sirve en papel (barras deslizantes, botones, avisos).

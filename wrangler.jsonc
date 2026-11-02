@@ -1,0 +1,10 @@
+{
+  // Sitio estático: se publica index.html y la carpeta docs/
+  "name": "generador-villa-paris",
+  "compatibility_date": "2026-11-01",
+  "assets": {
+    "directory": "./"
+  },
+  // Necesario para que Cloudflare pueda crear vistas previas de las ramas (`wrangler preview`)
+  "previews": {}
+}
