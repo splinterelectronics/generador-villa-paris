@@ -19,6 +19,13 @@ Total del mes = ① Combustible + ② Mantenimiento prorrateado + ③ Costos fij
 
 Las horas de cada corte se calculan a partir de la hora de encendido y apagado (cubre los cortes que pasan de medianoche).
 
+## Novedades
+
+- **¿Y si…?**: deslizador de horas de cortes y precio del diésel para ver cómo cambia el total y lo que paga cada unidad.
+- Separa lo que **se paga siempre** de lo que **depende del uso**, y muestra cuánto cuesta cada hora extra encendido.
+- El mantenimiento por horas tiene un tope en meses («lo que ocurra primero»).
+- Glosario en lenguaje sencillo, aviso de valores de ejemplo, total fijo en el celular, importación segura de archivos.
+
 ## Uso
 
 1. Abre `index.html` en el navegador (o la versión publicada).
