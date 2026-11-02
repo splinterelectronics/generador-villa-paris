@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" width="100%" height="100%">
+  <defs>
+    <linearGradient id="eiffelGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#FDE68A"/>
+      <stop offset="40%" stop-color="#F59E0B"/>
+      <stop offset="100%" stop-color="#D97706"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="2" result="blur"/>
+      <feComposite in="SourceGraphic" in2="blur" operator="over"/>
+    </filter>
+  </defs>
+
+  <!-- Luz / Cúpula superior y Antena -->
+  <line x1="50" y1="4" x2="50" y2="16" stroke="url(#eiffelGrad)" stroke-width="2.5" stroke-linecap="round"/>
+  <circle cx="50" cy="5" r="2.5" fill="#FFFBEB" filter="url(#glow)"/>
+
+  <!-- Tramo Superior de la A -->
+  <path d="M 47 16 L 53 16 L 54 32 L 46 32 Z" fill="url(#eiffelGrad)"/>
+  <line x1="43" y1="33" x2="57" y2="33" stroke="url(#eiffelGrad)" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Tramo Medio con Celosía -->
+  <path d="M 46 34 L 40 56 L 60 56 L 54 34 Z" fill="none" stroke="url(#eiffelGrad)" stroke-width="2.5"/>
+  <line x1="44" y1="35" x2="56" y2="55" stroke="url(#eiffelGrad)" stroke-width="1.5" opacity="0.85"/>
+  <line x1="56" y1="35" x2="44" y2="55" stroke="url(#eiffelGrad)" stroke-width="1.5" opacity="0.85"/>
+
+  <!-- Travesaño Principal de la Letra 'A' (Plataforma 1 de la Torre) -->
+  <rect x="31" y="56" width="38" height="5" rx="2" fill="url(#eiffelGrad)" filter="url(#glow)"/>
+  <line x1="28" y1="62.5" x2="72" y2="62.5" stroke="url(#eiffelGrad)" stroke-width="2.5" stroke-linecap="round"/>
+
+  <!-- Piernas Inferiores de la Torre / Base de la A -->
+  <path d="M 37 63.5 L 21 95 L 32 95 L 44 63.5 Z" fill="url(#eiffelGrad)"/>
+  <path d="M 63 63.5 L 79 95 L 68 95 L 56 63.5 Z" fill="url(#eiffelGrad)"/>
+
+  <!-- Gran Arco Inferior de la Torre Eiffel -->
+  <path d="M 30 95 Q 50 68 70 95" fill="none" stroke="url(#eiffelGrad)" stroke-width="4" stroke-linecap="round"/>
+  <path d="M 34 95 Q 50 74 66 95" fill="none" stroke="#FDE68A" stroke-width="1.5" opacity="0.9"/>
+
+  <!-- Destello eléctrico en la cima -->
+  <path d="M 50 2 L 52 7 L 49 8 L 51 13" stroke="#FFF" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" filter="url(#glow)"/>
+</svg>
