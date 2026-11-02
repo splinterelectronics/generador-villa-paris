@@ -13,10 +13,28 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
+    @page { size: A4; margin: 12mm; }
+    .print-only { display: none; }
     @media print {
-      .no-print { display: none !important; }
-      body { background: white !important; color: black !important; padding: 0 !important; }
+      * { -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+      .no-print, #toast, #appTooltip { display: none !important; }
+      body { background: white !important; color: black !important; padding: 0 !important; font-size: 12px; }
       .print-shadow-none { box-shadow: none !important; border: 1px solid #cbd5e1 !important; }
+      .print-only { display: block; }
+      /* Encabezado claro y sin barra pegajosa (ahorra tinta) */
+      header { position: static !important; background: #fff !important; border-bottom: 2px solid #10b981 !important; box-shadow: none !important; }
+      header, header * { color: #0f172a !important; }
+      header .text-emerald-400 { color: #059669 !important; }
+      header span.bg-slate-800 { background: #e2e8f0 !important; border-color: #cbd5e1 !important; }
+      main { padding-top: 10px !important; }
+      /* Primero los resultados, después los parámetros */
+      .print-grid { display: flex !important; flex-direction: column; gap: 14px; }
+      .print-results { order: 1; }
+      .print-params { order: 2; }
+      /* No partir tarjetas ni filas entre páginas */
+      .rounded-2xl, .rounded-3xl, tr { break-inside: avoid; page-break-inside: avoid; }
+      input::-webkit-inner-spin-button, input::-webkit-outer-spin-button { -webkit-appearance: none; margin: 0; }
+      .shadow-lg, .shadow-sm, .shadow-xs { box-shadow: none !important; }
     }
     .has-tip {
       cursor: help;
@@ -113,7 +131,7 @@
 
     <!-- Membrete Comunitario: Cuota por Casa y Presupuesto Total en Primer Plano -->
     <div class="relative overflow-hidden bg-gradient-to-br from-white via-white to-emerald-50/70 border border-slate-200/90 rounded-3xl p-6 sm:p-8 shadow-sm">
-      <div class="absolute -top-16 -right-16 w-56 h-56 rounded-full bg-emerald-100/50 blur-2xl pointer-events-none"></div>
+      <div class="no-print absolute -top-16 -right-16 w-56 h-56 rounded-full bg-emerald-100/50 blur-2xl pointer-events-none"></div>
       <div class="relative grid grid-cols-1 lg:grid-cols-12 gap-6 lg:gap-8 items-stretch">
 
         <!-- Texto + composición del presupuesto -->
@@ -153,7 +171,6 @@
             </div>
             <div class="mt-2">
               <span id="bannerDailyPerHome" class="block text-xs text-emerald-50/90 font-medium">~$2.93 al día por casa</span>
-              <span id="bannerCuotaBs" class="block text-xs text-white font-bold mt-0.5"></span>
             </div>
           </div>
 
@@ -166,7 +183,6 @@
             <span id="bannerTotalMonthly" class="block text-3xl sm:text-4xl xl:text-3xl font-black text-slate-900 mt-2 tracking-tight">$6,581.88</span>
             <div class="mt-2">
               <span id="txtMonthHomes" class="block text-xs text-slate-500">Mes de 30 días (75 casas)</span>
-              <span id="bannerTotalBs" class="block text-xs text-slate-700 font-bold mt-0.5"></span>
             </div>
           </div>
         </div>
@@ -175,10 +191,10 @@
     </div>
 
     <!-- GRID DE 2 COLUMNAS (DISTRIBUCIÓN ORIGINAL CLÁSICA) -->
-    <div class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+    <div class="print-grid grid grid-cols-1 lg:grid-cols-12 gap-6">
 
       <!-- COLUMNA IZQUIERDA: CONTROLES INTERACTIVOS FÁCILES DE MANIPULAR (lg:col-span-5) -->
-      <div class="lg:col-span-5 space-y-6">
+      <div class="print-params lg:col-span-5 space-y-6">
         <div class="bg-white border border-slate-200/90 rounded-2xl p-6 shadow-sm">
           
           <div class="flex items-center justify-between pb-4 border-b border-slate-100 mb-5">
@@ -186,9 +202,9 @@
               <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
                 <i class="fa-solid fa-sliders text-emerald-600"></i> Parámetros de Operación
               </h3>
-              <p class="text-xs text-slate-500 mt-1">👆 Lo que tiene color <b class="text-emerald-700">se puede cambiar</b>: mueve las barras o escribe en las casillas.</p>
+              <p class="no-print text-xs text-slate-500 mt-1">👆 Lo que tiene color <b class="text-emerald-700">se puede cambiar</b>: mueve las barras o escribe en las casillas.</p>
             </div>
-            <button id="btnReset" class="text-xs text-slate-500 hover:text-emerald-600 font-semibold transition flex items-center gap-1">
+            <button id="btnReset" class="no-print text-xs text-slate-500 hover:text-emerald-600 font-semibold transition flex items-center gap-1">
               <i class="fa-solid fa-rotate-left"></i> Restablecer
             </button>
           </div>
@@ -392,18 +408,12 @@
               <span id="badgeCostPerHour" class="font-black text-sky-800 bg-white px-2 py-0.5 rounded-lg border border-sky-300 font-mono">$0.00 / h</span>
             </div>
 
-            <div class="border-t border-slate-100 pt-4">
-              <label for="inputTasa" class="font-bold text-slate-700 block mb-1">Tasa BCV (Bs por USD) <span class="font-normal text-slate-400 text-xs">— opcional, para ver bolívares</span></label>
-              <input type="number" id="inputTasa" value="" step="any" min="0" placeholder="Ej. 40.50"
-                class="block w-full rounded-xl field f-emerald px-3 py-2 text-sm text-slate-900 font-bold font-mono">
-            </div>
-
           </div>
         </div>
       </div>
 
       <!-- COLUMNA DERECHA: RESULTADOS, COMPARATIVAS Y RESPUESTAS A DUDAS (lg:col-span-7) -->
-      <div class="lg:col-span-7 space-y-5">
+      <div class="print-results lg:col-span-7 space-y-5">
 
         <!-- FILA 1: 3 TARJETAS PRINCIPALES DEL RESUMEN FINANCIERO -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
@@ -700,6 +710,10 @@
 
   </main>
 
+  <div class="print-only max-w-7xl mx-auto px-4 pt-4 text-center text-[11px] text-slate-500">
+    Documento generado el <span id="printDate"></span> · Urb. Villa París A · Versión <span id="printVersion"></span>
+  </div>
+
   <footer class="no-print max-w-7xl mx-auto px-4 pt-6 pb-2 text-center text-[11px] text-slate-400">
     Versión <span id="appVersion"></span> ·
     <a class="underline hover:text-slate-600" href="https://github.com/splinterelectronics/generador-villa-paris/blob/main/CHANGELOG.md">Historial de cambios</a>
@@ -733,7 +747,7 @@
   </div>
 
   <script>
-    const VERSION = '2.3.0';
+    const VERSION = '2.4.0';
     // Variables de interfaz
     const inputHoursDay = document.getElementById('inputHoursDay');
     const displayHoursDay = document.getElementById('displayHoursDay');
@@ -754,7 +768,6 @@
     const inputCostoMantenimiento = document.getElementById('inputCostoMantenimiento');
     const inputIntervaloHoras = document.getElementById('inputIntervaloHoras');
     const inputViviendas = document.getElementById('inputViviendas');
-    const inputTasa = document.getElementById('inputTasa');
 
     // Banners Superiores
     const bannerCuotaHome = document.getElementById('bannerCuotaHome');
@@ -854,7 +867,6 @@
       return 50.8;
     }
 
-    const bsFmt = v => 'Bs ' + v.toLocaleString('es-VE', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     let lastCalc = { perHome: 0, deficit6h: 0 };
 
     function formatMoney(val) {
@@ -912,8 +924,6 @@
       const costMaint = parseFloat(inputCostoMantenimiento.value) || 0;
       const intervalHours = parseFloat(inputIntervaloHoras.value) || 200;
       const homes = parseInt(inputViviendas.value, 10) || 75;
-      const tasa = parseFloat(inputTasa.value) || 0;
-
       displayHoursDay.innerText = `${hoursDay.toFixed(1)} hrs/día`;
       document.getElementById('badgePrecio').innerText = `${formatMoney(priceLiter)} USD`;
       document.getElementById('badgeCasas').innerText = `${homes} casas`;
@@ -937,9 +947,7 @@
       const monthlyPerHome = monthlyTotal / homes;
       const dailyPerHome = monthlyPerHome / 30;
 
-      // Bolívares (opcional) y barra del celular
-      document.getElementById('bannerCuotaBs').innerText = tasa > 0 ? `≈ ${bsFmt(monthlyPerHome * tasa)} / casa` : '';
-      document.getElementById('bannerTotalBs').innerText = tasa > 0 ? `≈ ${bsFmt(monthlyTotal * tasa)}` : '';
+      // Barra del celular
       document.getElementById('mbCuota').innerText = formatMoney(monthlyPerHome);
       document.getElementById('mbTotal').innerText = formatMoney(monthlyTotal);
 
@@ -1142,7 +1150,7 @@
       calculate();
     });
 
-    [inputHoursDay, inputPrecioLitro, inputCostoMantenimiento, inputIntervaloHoras, inputViviendas, inputTasa].forEach(elem => {
+    [inputHoursDay, inputPrecioLitro, inputCostoMantenimiento, inputIntervaloHoras, inputViviendas].forEach(elem => {
       elem.addEventListener('input', () => {
         onKwChanged();
       });
@@ -1157,7 +1165,6 @@
       inputCostoMantenimiento.value = 1013.00;
       inputIntervaloHoras.value = 200;
       inputViviendas.value = 75;
-      inputTasa.value = '';
       onKwChanged();
       showToast('Restablecido a 75 casas, $0.98/L y 4h');
     });
@@ -1169,8 +1176,6 @@
       const totalMonth = statTotalMonthly.innerText;
       const perHome = statPerHomeMonthly.innerText;
       const dailyPerHome = statDailyPerHome.innerText;
-      const tasa = parseFloat(inputTasa.value) || 0;
-
       const message = `*CÁLCULO OPERATIVOS USO GENERADOR ELÉCTRICO · URB. VILLA PARÍS A* ⚡\n\n` +
         `🏠 *CUOTA MENSUAL SUGERIDA (${homes} CASAS):* *${perHome} al mes por casa* (${dailyPerHome})\n` +
         `💰 *Presupuesto Total Comunidad:* ${totalMonth} al mes\n\n` +
@@ -1183,7 +1188,6 @@
         `• 4h Sostenible (Con reserva): *${tdCuotaSostenible4h.innerText} / casa*\n` +
         `• 6h Falla Habitual: *${tdCuotaHabitual6h.innerText} / casa*\n` +
         `• 7h Contingencia Severa: *${tdCuotaCritico7h.innerText} / casa*\n\n` +
-        (tasa > 0 ? `\n🇻🇪 *En bolívares (tasa ${tasa}):* ≈ ${bsFmt(lastCalc.perHome * tasa)} por casa al mes\n` : '') +
       `\n_Nota: Si se opera 6 horas diarias cobrando solo 4 h sin fondo de mantenimiento, el déficit es de ${formatMoney(lastCalc.deficit6h)} al mes._`;
 
       navigator.clipboard.writeText(message).then(() => {
@@ -1203,6 +1207,10 @@
 
     // Inicializar
     document.getElementById('appVersion').innerText = VERSION;
+    document.getElementById('printVersion').innerText = VERSION;
+    const setPrintDate = () => { document.getElementById('printDate').innerText = new Date().toLocaleDateString('es-VE', { day: '2-digit', month: 'long', year: 'numeric' }); };
+    setPrintDate();
+    window.addEventListener('beforeprint', setPrintDate);
     onKwChanged();
     setupTooltips();
   </script>
