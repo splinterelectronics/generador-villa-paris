@@ -9,11 +9,19 @@ Herramienta analítica e interactiva diseñada para la **Asociación Civil Villa
 
 ### 1. Régimen de Trabajo y Consumo
 * **Equipo:** Generador Diésel Cummins / Stamford de 440 kVA (352 kW continuo con factor de potencia 0.8).
-* **Demanda Residencial Promedio:** 220 kVA (~176 kW), lo que representa el 50% de la capacidad de la máquina.
-* **Tasa de Consumo:** De acuerdo con la curva técnica del fabricante (30–34 L/h a 150 kW y 42–47 L/h a 200 kW), a 176 kW el consumo estándar verificado se sitúa en **45 Litros/hora**.
+* **Demanda Residencial Típica:** Entre 150 kW y 250 kW (representa del 43% al 71% de la capacidad continua).
+* **Demanda Promedio Verificada:** **200 kW** (~250 kVA / 57% de carga continua), equivalente a **4.0 kW por vivienda** en base a 50 casas.
+* **Tasa de Consumo según Curva Cummins Oficial:**
+  * **150 kW** (~43% carga · 3.0 kW/casa): **30 – 34 L/h** (promedio: 32 L/h · 4.69 kWh/L)
+  * **176 kW** (50% carga nominal · 3.5 kW/casa): **38 – 41 L/h** (promedio: 39.5 L/h · 4.46 kWh/L)
+  * **200 kW** (~57% carga · 4.0 kW/casa): **42 – 47 L/h** (promedio: **44.5 ≈ 45 L/h** · 4.49 kWh/L)
+  * **250 kW** (~71% carga · 5.0 kW/casa): **54 – 60 L/h** (promedio: 57 L/h · 4.38 kWh/L)
+  * **300 kW** (~85% carga · 6.0 kW/casa): **65 – 72 L/h** (promedio: 68.5 L/h · 4.38 kWh/L)
 * **Precio Unitario del Diésel:** $1.00 / Litro.
-* **Costo Horario de Combustible:**  
+* **Costo Horario de Combustible (a 200 kW / 45 L/h):**  
   45 L/h × $1.00/L = **$45.00 / hora**
+* **Costo Energético Integral:**  
+  ($45.00 combustible + $5.065 mantenimiento) ÷ 200 kWh = **$0.250 / kWh generado**
 
 ![Tabla de Consumo Cummins Stamford 440 kVA](docs/tabla-consumo-cummins-440kva.jpg)
 
