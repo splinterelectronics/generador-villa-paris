@@ -21,6 +21,27 @@
     .has-tip {
       cursor: help;
     }
+    /* ===== Controles editables con color ===== */
+    input[type=range].slider{-webkit-appearance:none;appearance:none;width:100%;height:12px;border-radius:999px;cursor:pointer;outline:none;
+      background:linear-gradient(to right,var(--sc) 0%,var(--sc) var(--p,50%),var(--st) var(--p,50%),var(--st) 100%)}
+    input[type=range].slider::-webkit-slider-thumb{-webkit-appearance:none;width:28px;height:28px;border-radius:50%;background:#fff;border:5px solid var(--sc);box-shadow:0 2px 8px rgba(0,0,0,.25);cursor:grab;transition:transform .12s}
+    input[type=range].slider::-moz-range-thumb{width:18px;height:18px;border-radius:50%;background:#fff;border:5px solid var(--sc);box-shadow:0 2px 8px rgba(0,0,0,.25);cursor:grab}
+    input[type=range].slider::-moz-range-track{background:transparent}
+    input[type=range].slider:hover::-webkit-slider-thumb,input[type=range].slider:active::-webkit-slider-thumb{transform:scale(1.15)}
+    input[type=range].slider:focus-visible{box-shadow:0 0 0 4px var(--fr)}
+    .s-emerald{--sc:#10b981;--st:#d1fae5;--fr:rgba(16,185,129,.25)}
+    .s-sky{--sc:#0ea5e9;--st:#e0f2fe;--fr:rgba(14,165,233,.25)}
+    input.field{border:2px solid var(--fc);background:var(--fb);transition:box-shadow .15s,border-color .15s}
+    input.field:hover{border-color:var(--fa)}
+    input.field:focus{border-color:var(--fa);box-shadow:0 0 0 4px var(--fr);outline:none}
+    .f-sky{--fc:#7dd3fc;--fb:#f0f9ff;--fa:#0284c7;--fr:rgba(14,165,233,.2)}
+    .f-amber{--fc:#fcd34d;--fb:#fffbeb;--fa:#d97706;--fr:rgba(245,158,11,.22)}
+    .f-indigo{--fc:#a5b4fc;--fb:#eef2ff;--fa:#4f46e5;--fr:rgba(99,102,241,.2)}
+    .f-emerald{--fc:#6ee7b7;--fb:#ecfdf5;--fa:#059669;--fr:rgba(16,185,129,.2)}
+    div:has(> input.f-sky) > div{color:#0284c7}
+    div:has(> input.f-amber) > div{color:#d97706}
+    div:has(> input.f-indigo) > div{color:#4f46e5}
+    @media print{ input[type=range].slider{display:none} }
   </style>
 </head>
 <body class="bg-[#f1f5f9] text-slate-800 min-h-screen antialiased selection:bg-emerald-500 selection:text-white font-sans pb-16">
@@ -165,7 +186,7 @@
               <h3 class="text-sm font-bold text-slate-900 flex items-center gap-2">
                 <i class="fa-solid fa-sliders text-emerald-600"></i> Parámetros de Operación
               </h3>
-              <p class="text-[11px] text-slate-400 mt-0.5">Mueve los controles para ver el cambio inmediato</p>
+              <p class="text-xs text-slate-500 mt-1">👆 Lo que tiene color <b class="text-emerald-700">se puede cambiar</b>: mueve las barras o escribe en las casillas.</p>
             </div>
             <button id="btnReset" class="text-xs text-slate-500 hover:text-emerald-600 font-semibold transition flex items-center gap-1">
               <i class="fa-solid fa-rotate-left"></i> Restablecer
@@ -188,7 +209,7 @@
                 </span>
               </div>
               <input type="range" id="inputHoursDay" min="1" max="24" step="0.5" value="4" 
-                class="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600">
+                class="slider s-emerald">
               <div class="flex justify-between text-[11px] text-slate-500 mt-1 font-medium">
                 <span>1h</span>
                 <span class="text-emerald-700 font-bold">4h (recaudo actual)</span>
@@ -199,26 +220,26 @@
             </div>
 
             <!-- 2. Demanda de Carga Eléctrica (kW) -->
-            <div class="p-4 rounded-xl bg-slate-50 border border-slate-200/80 space-y-3 has-tip"
+            <div class="p-4 rounded-xl bg-sky-50/60 border-2 border-sky-200 space-y-3 has-tip"
                  data-tip-title="Demanda de Carga Comunitaria (kW)"
                  data-tip-desc="Potencia eléctrica que consumen en conjunto las 75 casas (aires acondicionados, neveras, iluminación). A mayor potencia exigida, más gasoil por hora inyecta el motor."
                  data-tip-formula="Potencia kW ÷ 75 casas = Demanda por vivienda">
               <div class="flex justify-between items-start">
                 <div>
                   <label for="inputKw" class="text-xs font-bold uppercase tracking-wider text-slate-700 flex items-center gap-1.5 cursor-pointer">
-                    <i class="fa-solid fa-plug-circle-bolt text-emerald-600"></i> Demanda de Carga (kW)
+                    <i class="fa-solid fa-plug-circle-bolt text-sky-600"></i> Demanda de Carga (kW)
                     <i class="fa-solid fa-circle-question text-xs text-slate-400"></i>
                   </label>
                   <p class="text-[11px] text-slate-500 mt-0.5">Potencia continua exigida por la comunidad</p>
                 </div>
                 <div class="text-right">
-                  <span id="displayKwVal" class="text-sm font-black text-slate-900 font-mono">225 kW</span>
+                  <span id="displayKwVal" class="text-sm font-black text-sky-800 bg-sky-100 px-2.5 py-0.5 rounded-lg border border-sky-200 font-mono">225 kW</span>
                   <span id="displayKvaVal" class="block text-[10px] text-slate-500 font-mono">~281 kVA</span>
                 </div>
               </div>
 
               <input type="range" id="inputKw" min="120" max="350" step="5" value="225" 
-                class="w-full h-2.5 bg-slate-200 rounded-lg appearance-none cursor-pointer accent-emerald-600">
+                class="slider s-sky">
 
               <div class="grid grid-cols-2 gap-2 text-[11px]">
                 <div class="bg-white px-2.5 py-1.5 rounded-lg border border-slate-200">
@@ -233,16 +254,16 @@
 
               <!-- Presets rápidos para 75 casas -->
               <div class="flex flex-wrap gap-1.5 pt-1">
-                <button type="button" class="btn-kw-preset px-2.5 py-1 rounded-lg bg-white hover:bg-slate-100 text-[11px] text-slate-600 border border-slate-200 font-medium" data-kw="150">
+                <button type="button" class="btn-kw-preset px-2.5 py-1 rounded-lg bg-sky-50 hover:bg-sky-100 text-[11px] text-sky-800 border border-sky-200 font-semibold" data-kw="150">
                   150 kW (2.0 kW/casa · 32 L/h)
                 </button>
-                <button type="button" class="btn-kw-preset px-2.5 py-1 rounded-lg bg-white hover:bg-slate-100 text-[11px] text-slate-600 border border-slate-200 font-medium" data-kw="180">
+                <button type="button" class="btn-kw-preset px-2.5 py-1 rounded-lg bg-sky-50 hover:bg-sky-100 text-[11px] text-sky-800 border border-sky-200 font-semibold" data-kw="180">
                   180 kW (2.4 kW/casa · 40 L/h)
                 </button>
-                <button type="button" class="btn-kw-preset px-2.5 py-1 rounded-lg bg-emerald-600 text-white border border-emerald-600 text-[11px] font-bold shadow-xs" data-kw="225">
+                <button type="button" class="btn-kw-preset px-2.5 py-1 rounded-lg bg-sky-600 text-white border border-sky-600 text-[11px] font-bold shadow-sm" data-kw="225">
                   225 kW (3.0 kW/casa · 50.8 L/h)
                 </button>
-                <button type="button" class="btn-kw-preset px-2.5 py-1 rounded-lg bg-white hover:bg-slate-100 text-[11px] text-slate-600 border border-slate-200 font-medium" data-kw="260">
+                <button type="button" class="btn-kw-preset px-2.5 py-1 rounded-lg bg-sky-50 hover:bg-sky-100 text-[11px] text-sky-800 border border-sky-200 font-semibold" data-kw="260">
                   260 kW (3.5 kW/casa · 59 L/h)
                 </button>
               </div>
@@ -266,7 +287,7 @@
                   <i class="fa-solid fa-gas-pump"></i>
                 </div>
                 <input type="number" id="inputLitrosHora" value="50.8" step="0.1" min="1" max="150"
-                  class="block w-full rounded-xl border border-slate-300 bg-white pl-9 pr-12 py-2 text-sm text-slate-900 font-bold focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 font-mono">
+                  class="block w-full rounded-xl field f-sky pl-9 pr-12 py-2 text-sm text-slate-900 font-bold focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 font-mono">
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 text-xs">
                   L/h
                 </div>
@@ -285,14 +306,14 @@
                   <span>Precio del Gasoil por Litro</span>
                   <i class="fa-solid fa-circle-question text-xs text-slate-400"></i>
                 </label>
-                <span class="text-xs text-emerald-800 font-bold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-200">$0.98 USD</span>
+                <span id="badgePrecio" class="text-xs text-amber-800 font-bold bg-amber-50 px-2 py-0.5 rounded border border-amber-200 font-mono">$0.98 USD</span>
               </div>
               <div class="relative rounded-xl shadow-xs">
                 <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400 font-bold">
                   $
                 </div>
                 <input type="number" id="inputPrecioLitro" value="0.98" step="0.01" min="0.1"
-                  class="block w-full rounded-xl border border-slate-300 bg-white pl-8 pr-12 py-2 text-sm text-slate-900 font-bold focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 font-mono">
+                  class="block w-full rounded-xl field f-amber pl-8 pr-12 py-2 text-sm text-slate-900 font-bold focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 font-mono">
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 text-xs">
                   USD
                 </div>
@@ -308,14 +329,14 @@
                   <span>N° de Casas en Villa París A</span>
                   <i class="fa-solid fa-circle-question text-xs text-slate-400"></i>
                 </label>
-                <span class="text-xs text-slate-900 font-bold bg-slate-100 px-2 py-0.5 rounded border border-slate-200">75 casas</span>
+                <span id="badgeCasas" class="text-xs text-indigo-800 font-bold bg-indigo-50 px-2 py-0.5 rounded border border-indigo-200 font-mono">75 casas</span>
               </div>
               <div class="relative rounded-xl shadow-xs">
                 <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3.5 text-slate-400">
                   <i class="fa-solid fa-house"></i>
                 </div>
                 <input type="number" id="inputViviendas" value="75" step="1" min="1" max="1000"
-                  class="block w-full rounded-xl border border-slate-300 bg-white pl-9 pr-14 py-2 text-sm text-slate-900 font-bold focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 font-mono">
+                  class="block w-full rounded-xl field f-indigo pl-9 pr-14 py-2 text-sm text-slate-900 font-bold focus:border-emerald-500 focus:ring-1 focus:ring-emerald-500 font-mono">
                 <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 text-xs">
                   casas
                 </div>
@@ -334,7 +355,7 @@
                 <div class="relative rounded-xl shadow-xs">
                   <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400 text-xs">$</span>
                   <input type="number" id="inputCostoMantenimiento" value="1013.00" step="1" min="100"
-                    class="block w-full rounded-xl border border-slate-300 bg-white pl-7 pr-3 py-2 text-xs text-slate-900 font-bold font-mono">
+                    class="block w-full rounded-xl field f-amber pl-7 pr-3 py-2 text-xs text-slate-900 font-bold font-mono">
                 </div>
               </div>
               <div class="has-tip"
@@ -346,7 +367,7 @@
                 </label>
                 <div class="relative rounded-xl shadow-xs">
                   <input type="number" id="inputIntervaloHoras" value="200" step="10" min="50" max="500"
-                    class="block w-full rounded-xl border border-slate-300 bg-white pl-3 pr-8 py-2 text-xs text-slate-900 font-bold font-mono">
+                    class="block w-full rounded-xl field f-amber pl-3 pr-8 py-2 text-xs text-slate-900 font-bold font-mono">
                   <span class="pointer-events-none absolute inset-y-0 right-0 flex items-center pr-3 text-slate-400 text-xs">h</span>
                 </div>
               </div>
@@ -374,7 +395,7 @@
             <div class="border-t border-slate-100 pt-4">
               <label for="inputTasa" class="font-bold text-slate-700 block mb-1">Tasa BCV (Bs por USD) <span class="font-normal text-slate-400 text-xs">— opcional, para ver bolívares</span></label>
               <input type="number" id="inputTasa" value="" step="any" min="0" placeholder="Ej. 40.50"
-                class="block w-full rounded-xl border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 font-bold font-mono">
+                class="block w-full rounded-xl field f-emerald px-3 py-2 text-sm text-slate-900 font-bold font-mono">
             </div>
 
           </div>
@@ -712,7 +733,7 @@
   </div>
 
   <script>
-    const VERSION = '2.2.0';
+    const VERSION = '2.3.0';
     // Variables de interfaz
     const inputHoursDay = document.getElementById('inputHoursDay');
     const displayHoursDay = document.getElementById('displayHoursDay');
@@ -866,16 +887,24 @@
       btnKwPresets.forEach(btn => {
         const btnKw = parseFloat(btn.dataset.kw);
         if (Math.abs(btnKw - kw) < 2) {
-          btn.className = 'btn-kw-preset px-2.5 py-1 rounded-lg bg-emerald-600 text-white border border-emerald-600 text-[11px] font-bold shadow-xs';
+          btn.className = 'btn-kw-preset px-2.5 py-1 rounded-lg bg-sky-600 text-white border border-sky-600 text-[11px] font-bold shadow-sm';
         } else {
-          btn.className = 'btn-kw-preset px-2.5 py-1 rounded-lg bg-white hover:bg-slate-100 text-[11px] text-slate-600 border border-slate-200 font-medium';
+          btn.className = 'btn-kw-preset px-2.5 py-1 rounded-lg bg-sky-50 hover:bg-sky-100 text-[11px] text-sky-800 border border-sky-200 font-semibold';
         }
       });
 
       calculate();
     }
 
+    function paintSliders() {
+      document.querySelectorAll('input.slider').forEach(el => {
+        const pct = ((parseFloat(el.value) - parseFloat(el.min)) / (parseFloat(el.max) - parseFloat(el.min))) * 100;
+        el.style.setProperty('--p', Math.max(0, Math.min(100, pct)) + '%');
+      });
+    }
+
     function calculate() {
+      paintSliders();
       const hoursDay = parseFloat(inputHoursDay.value) || 0;
       const kw = parseFloat(inputKw.value) || 225;
       const litersHour = parseFloat(inputLitrosHora.value) || 0;
@@ -886,6 +915,8 @@
       const tasa = parseFloat(inputTasa.value) || 0;
 
       displayHoursDay.innerText = `${hoursDay.toFixed(1)} hrs/día`;
+      document.getElementById('badgePrecio').innerText = `${formatMoney(priceLiter)} USD`;
+      document.getElementById('badgeCasas').innerText = `${homes} casas`;
 
       // Costo por hora
       const fuelCostPerHour = litersHour * priceLiter;

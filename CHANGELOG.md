@@ -3,6 +3,12 @@
 Formato: [Versionado semántico](https://semver.org/lang/es/) — `MAYOR.MENOR.PARCHE`.
 Para publicar una versión nueva: cambia `VERSION` en `index.html`, agrega una entrada aquí y crea la etiqueta (`git tag vX.Y.Z`) o un Release en GitHub.
 
+## [2.3.0] — 2026-11-02
+### Cambiado
+- Los controles editables ahora tienen color: barras con relleno y perilla grande (verde para horas, azul para kW), casillas con borde y fondo de color (azul, ámbar, índigo, verde) que se resaltan al tocarlas, y botones de potencia en azul.
+- Mensaje al inicio: «Lo que tiene color se puede cambiar».
+- Las etiquetas de precio y número de casas ahora se actualizan con los datos.
+
 ## [2.2.0] — 2026-11-02
 ### Cambiado
 - Tarjeta principal rediseñada: la cuota por casa ahora es un cuadro verde destacado, el total va a su lado con el mismo alto, y el espacio vacío se aprovecha.
