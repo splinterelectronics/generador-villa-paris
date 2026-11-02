@@ -3,6 +3,10 @@
 Formato: [Versionado semántico](https://semver.org/lang/es/) — `MAYOR.MENOR.PARCHE`.
 Para publicar una versión nueva: cambia `VERSION` en `index.html`, agrega una entrada aquí y crea la etiqueta (`git tag vX.Y.Z`) o un Release en GitHub.
 
+## [2.6.0] — 2026-11-02
+### Cambiado
+- Los datos técnicos (energía generada, rendimiento, costo por kWh, proyección a 12 meses y servicios al año) ya no ocupan el centro de la página: pasan al final, en un bloque pequeño y discreto llamado «Datos técnicos».
+
 ## [2.5.1] — 2026-11-02
 ### Corregido
 - La ubicación decía «Barquisimeto»; la urbanización está en Cabudare (Estado Lara). Corregido en la página y en el README.

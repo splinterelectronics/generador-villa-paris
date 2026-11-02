@@ -49,7 +49,6 @@
       table td.text-right, table th.text-right, table td.text-center, table th.text-center { white-space: nowrap !important; }
       table tbody { font-size: 10.5px !important; }
       /* Tarjetas pequeñas: misma altura de texto y sin partir los valores */
-      #statKwhMonthly, #statEfficiency, #statUnitCostKwh { font-size: 17px !important; white-space: nowrap !important; }
       /* Los parámetros empiezan en hoja nueva (no dejar el título huérfano) */
       .print-params { break-before: page; page-break-before: always; }
     }
@@ -502,66 +501,6 @@
 
         </div>
 
-        <!-- FILA 2: 3 TARJETAS SECUNDARIAS (ENERGÍA, RENDIMIENTO, COSTO POR KWH) -->
-        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3.5">
-          
-          <!-- Tarjeta 4: Energía Generada / Mes -->
-          <div class="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs relative overflow-hidden has-tip hover:border-slate-300 transition"
-               data-tip-title="Energía Generada al Mes"
-               data-tip-desc="Total de kilovatios-hora (kWh) producidos por el generador durante el mes y repartidos en promedio entre las 75 casas.">
-            <div class="flex justify-between items-start">
-              <span class="text-[11px] font-semibold text-slate-500">Energía Generada / Mes:</span>
-              <i class="fa-solid fa-circle-question text-slate-400 text-xs"></i>
-            </div>
-            <div id="statKwhMonthly" class="text-xl sm:text-2xl font-black text-slate-900 mt-1 tracking-tight font-mono">27,000 kWh</div>
-            <div id="statKwhPerHome" class="text-xs text-slate-400 mt-0.5">360 kWh por vivienda / mes</div>
-          </div>
-
-          <!-- Tarjeta 5: Rendimiento Energético -->
-          <div class="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs relative overflow-hidden has-tip hover:border-sky-300 transition"
-               data-tip-title="Rendimiento Energético (kWh / Litro)"
-               data-tip-desc="Eficiencia de conversión: cuántos kilovatios-hora genera la planta por cada litro de diésel consumido a este nivel de carga.">
-            <div class="flex justify-between items-start">
-              <span class="text-[11px] font-semibold text-slate-500">Rendimiento Energético:</span>
-              <i class="fa-solid fa-circle-question text-slate-400 text-xs"></i>
-            </div>
-            <div id="statEfficiency" class="text-xl sm:text-2xl font-black text-sky-700 mt-1 tracking-tight font-mono">4.43 kWh / Litro</div>
-            <div id="statLitersPerKwh" class="text-xs text-slate-400 mt-0.5 font-mono">0.226 L por cada kWh generado</div>
-          </div>
-
-          <!-- Tarjeta 6: Costo Neto por kWh -->
-          <div class="bg-white border border-slate-200/90 rounded-2xl p-4 shadow-xs relative overflow-hidden has-tip hover:border-emerald-300 transition"
-               data-tip-title="Costo Neto por kWh Generado"
-               data-tip-desc="Costo real por kilovatio-hora sumando el gasoil ($0.98/L) y el desgaste del motor ($5.07/h).">
-            <div class="flex justify-between items-start">
-              <span class="text-[11px] font-semibold text-slate-500">Costo Neto por kWh:</span>
-              <i class="fa-solid fa-circle-question text-slate-400 text-xs"></i>
-            </div>
-            <div id="statUnitCostKwh" class="text-xl sm:text-2xl font-black text-emerald-600 mt-1 tracking-tight font-mono">$0.24 / kWh</div>
-            <div class="text-xs text-slate-400 mt-0.5">Incluye gasoil + servicio técnico</div>
-          </div>
-
-        </div>
-
-        <!-- FILA 3: PROYECCIÓN OPERATIVA A 12 MESES -->
-        <div class="p-4 bg-white border border-slate-200/90 rounded-2xl shadow-xs flex flex-col sm:flex-row justify-between items-start sm:items-center gap-3 has-tip"
-             data-tip-title="Proyección Operativa a 12 Meses"
-             data-tip-desc="Estimación de presupuesto anualizado y cantidad de servicios mayores de 200 horas que requerirá el generador durante el año completo.">
-          <div class="flex items-center gap-3">
-            <div class="w-9 h-9 rounded-xl bg-slate-100 flex items-center justify-center text-slate-600 shrink-0">
-              <i class="fa-solid fa-calendar-days text-sm"></i>
-            </div>
-            <div>
-              <span class="text-xs text-slate-500 block font-medium">Proyección Operativa a 12 Meses (Año Completo)</span>
-              <span id="statTotalAnnual" class="text-lg sm:text-xl font-black text-slate-900 font-mono">$78,982.56 anuales</span>
-            </div>
-          </div>
-          <div class="text-left sm:text-right">
-            <span class="text-xs text-slate-400 block font-medium">Mantenimientos mayores al año:</span>
-            <span id="statServicesAnnual" class="text-sm font-bold text-slate-800 font-mono">~7.30 servicios</span>
-          </div>
-        </div>
-
         <!-- FILA 4: TABLA COMPARATIVA DE ESCENARIOS Y DÉFICIT -->
         <div class="bg-white border border-slate-200/90 rounded-2xl overflow-hidden shadow-xs">
           <div class="px-5 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/70">
@@ -747,6 +686,40 @@
       </div>
     </div>
 
+    <!-- DATOS TÉCNICOS (secundarios, al final y en pequeño) -->
+    <div class="bg-white/70 border border-slate-200 rounded-2xl px-5 py-4">
+      <h3 class="text-[11px] font-bold uppercase tracking-widest text-slate-400 flex items-center gap-2 mb-3">
+        <i class="fa-solid fa-gears"></i> Datos técnicos <span class="normal-case tracking-normal font-medium text-slate-400">(para quien quiera más detalle)</span>
+      </h3>
+      <div class="grid grid-cols-2 lg:grid-cols-5 gap-x-4 gap-y-3 text-xs">
+        <div class="has-tip" data-tip-title="Energía Generada al Mes" data-tip-desc="Total de kilovatios-hora (kWh) producidos por el generador durante el mes y repartidos en promedio entre las casas.">
+          <span class="block text-[10px] text-slate-400">Energía generada / mes</span>
+          <span id="statKwhMonthly" class="block text-sm font-bold text-slate-700 font-mono whitespace-nowrap">0 kWh</span>
+          <span id="statKwhPerHome" class="block text-[10px] text-slate-400">—</span>
+        </div>
+        <div class="has-tip" data-tip-title="Rendimiento Energético (kWh / Litro)" data-tip-desc="Cuántos kilovatios-hora genera la planta por cada litro de diésel consumido a este nivel de carga.">
+          <span class="block text-[10px] text-slate-400">Rendimiento</span>
+          <span id="statEfficiency" class="block text-sm font-bold text-slate-700 font-mono whitespace-nowrap">0 kWh / Litro</span>
+          <span id="statLitersPerKwh" class="block text-[10px] text-slate-400">—</span>
+        </div>
+        <div class="has-tip" data-tip-title="Costo Neto por kWh Generado" data-tip-desc="Costo real por kilovatio-hora sumando el gasoil y el desgaste del motor.">
+          <span class="block text-[10px] text-slate-400">Costo por kWh</span>
+          <span id="statUnitCostKwh" class="block text-sm font-bold text-slate-700 font-mono whitespace-nowrap">$0.00 / kWh</span>
+          <span class="block text-[10px] text-slate-400">Gasoil + servicio técnico</span>
+        </div>
+        <div class="has-tip" data-tip-title="Proyección Operativa a 12 Meses" data-tip-desc="Estimación del presupuesto del generador para el año completo si se mantiene este régimen de uso.">
+          <span class="block text-[10px] text-slate-400">Proyección a 12 meses</span>
+          <span id="statTotalAnnual" class="block text-sm font-bold text-slate-700 font-mono whitespace-nowrap">$0.00 anuales</span>
+          <span class="block text-[10px] text-slate-400">Solo generador</span>
+        </div>
+        <div class="has-tip" data-tip-title="Mantenimientos mayores al año" data-tip-desc="Cantidad de servicios mayores (cambio de aceite y filtros) que se harían en un año con este régimen de uso.">
+          <span class="block text-[10px] text-slate-400">Servicios mayores al año</span>
+          <span id="statServicesAnnual" class="block text-sm font-bold text-slate-700 font-mono whitespace-nowrap">0 servicios</span>
+          <span class="block text-[10px] text-slate-400">Aceite y filtros</span>
+        </div>
+      </div>
+    </div>
+
   </main>
 
   <div class="print-only max-w-7xl mx-auto px-4 pt-4 text-center text-[11px] text-slate-500">
@@ -785,7 +758,7 @@
   </div>
 
   <script>
-    const VERSION = '2.5.1';
+    const VERSION = '2.6.0';
     // Variables de interfaz
     const inputHoursDay = document.getElementById('inputHoursDay');
     const displayHoursDay = document.getElementById('displayHoursDay');
