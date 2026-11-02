@@ -3,6 +3,10 @@
 Formato: [Versionado semántico](https://semver.org/lang/es/) — `MAYOR.MENOR.PARCHE`.
 Para publicar una versión nueva: cambia `VERSION` en `index.html`, agrega una entrada aquí y crea la etiqueta (`git tag vX.Y.Z`) o un Release en GitHub.
 
+## [2.5.1] — 2026-11-02
+### Corregido
+- La ubicación decía «Barquisimeto»; la urbanización está en Cabudare (Estado Lara). Corregido en la página y en el README.
+
 ## [2.5.0] — 2026-11-02
 ### Cambiado
 - La cuota por casa ahora dice claramente que corresponde **solo a los gastos del generador** y que el pago mensual total de cada casa es mayor porque incluye otros gastos del condominio. El aviso aparece en la tarjeta principal, en un recuadro destacado, en la tabla, en el mensaje de WhatsApp y en una pregunta frecuente nueva.
