@@ -3,6 +3,10 @@
 Formato: [Versionado semántico](https://semver.org/lang/es/) — `MAYOR.MENOR.PARCHE`.
 Para publicar una versión nueva: cambia `VERSION` en `index.html`, agrega una entrada aquí y crea la etiqueta (`git tag vX.Y.Z`) o un Release en GitHub.
 
+## [2.8.1] — 2026-11-02
+### Cambiado
+- El icono, el favicon, la imagen para compartir y el logo del encabezado ahora reproducen el **logo real de la urbanización**: la «A» caligráfica plateada sobre fondo azul marino, con el adorno curvo del travesaño y de la base. Antes usaban una torre verde que era solo una interpretación.
+
 ## [2.8.0] — 2026-11-02
 ### Agregado
 - Icono de la aplicación y favicon: torre verde con destello eléctrico sobre fondo oscuro, igual al logo del encabezado. Incluye `favicon.svg`, `favicon.ico` (16/32/48 px), `apple-touch-icon.png` (iPhone/iPad), iconos de 192 y 512 px (incluido uno «maskable» para Android) y `site.webmanifest`, de modo que la página se puede agregar a la pantalla de inicio con su icono y nombre.
