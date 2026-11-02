@@ -310,9 +310,11 @@
   <span>Total del mes<b id="mbTotal">$0,00</b></span>
   <span style="text-align:right">Por unidad<b id="mbUnidad">$0,00</b></span>
 </div>
+<footer class="wrap no-print" style="text-align:center;padding:0 0 90px;font-size:12px;color:var(--mute)">Versión <span id="ver"></span> · <a href="https://github.com/splinterelectronics/generador-villa-paris/blob/main/CHANGELOG.md" style="color:inherit">Historial de cambios</a> · TUR1NG · LEVELMATIC</footer>
 <div id="toast" role="status" aria-live="polite"></div>
 
 <script>
+const VERSION = '1.1.0';
 const LS_ACTUAL = 'vpa-gen-actual', LS_HIST = 'vpa-gen-historial';
 const COLORES = ['var(--c3)','var(--c4)','var(--c5)','#8e8e93'];
 const NUM_KEYS = ['kva','carga','lph','pruebas','minPrueba','lphVacio','horasExtra','precioL','flete','aditivos','valorRepo','vidaAnios','unidades','tasa','alicuota'];
@@ -561,7 +563,7 @@ function cargarMes(m){
   refrescarCampos(); pintarTablas(); cambio();
 }
 function exportar(){
-  const blob = new Blob([JSON.stringify({actual:D, mes:$('mes').value, historial:hist()},null,2)],{type:'application/json'});
+  const blob = new Blob([JSON.stringify({version:VERSION, actual:D, mes:$('mes').value, historial:hist()},null,2)],{type:'application/json'});
   const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
   a.download = `generador-villa-paris-${$('mes').value||'datos'}.json`; a.click();
   setTimeout(()=>URL.revokeObjectURL(a.href), 1000);
@@ -590,6 +592,7 @@ function reiniciar(){
 }
 
 /* ---------- inicio ---------- */
+$('ver').textContent = VERSION;
 const hoy = new Date();
 $('mes').value = D._mes || `${hoy.getFullYear()}-${String(hoy.getMonth()+1).padStart(2,'0')}`;
 $('mes').addEventListener('change', cambio);
