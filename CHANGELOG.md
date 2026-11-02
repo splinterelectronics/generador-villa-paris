@@ -3,6 +3,11 @@
 Formato: [Versionado semántico](https://semver.org/lang/es/) — `MAYOR.MENOR.PARCHE`.
 Para publicar una versión nueva: cambia `VERSION` en `index.html`, agrega una entrada aquí y crea la etiqueta (`git tag vX.Y.Z`) o un Release en GitHub.
 
+## [2.4.4] — 2026-11-02
+### Corregido
+- Tabla de escenarios: las etiquetas de color («Sin fondo mtto», «Falla severa», etc.) se partían a mitad de la píldora y salían cortadas; ahora van completas en su propia línea.
+- Celular: la columna «Cuota/Casa» quedaba fuera de la pantalla; ahora la tabla muestra lo esencial (escenario, fondo de mantenimiento, total y cuota) y cabe completa.
+
 ## [2.4.3] — 2026-11-02
 ### Corregido
 - PDF: la tabla de escenarios usa una línea por fila (etiquetas y cifras ya no se parten ni se pegan), las tarjetas pequeñas mantienen el mismo tamaño y los parámetros empiezan en hoja nueva en vez de dejar su título solo al final de la página anterior.

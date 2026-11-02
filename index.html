@@ -48,7 +48,6 @@
       /* Tabla: cifras en una sola línea, etiquetas sin partirse, primera columna flexible */
       table td.text-right, table th.text-right, table td.text-center, table th.text-center { white-space: nowrap !important; }
       table tbody { font-size: 10.5px !important; }
-      table td:first-child span { white-space: nowrap !important; display: inline-block; margin-top: 2px; }
       /* Tarjetas pequeñas: misma altura de texto y sin partir los valores */
       #statKwhMonthly, #statEfficiency, #statUnitCostKwh { font-size: 17px !important; white-space: nowrap !important; }
       /* Los parámetros empiezan en hoja nueva (no dejar el título huérfano) */
@@ -57,6 +56,17 @@
     .has-tip {
       cursor: help;
     }
+    /* Etiquetas de la tabla: siempre completas, en su propia línea (antes se partían a mitad) */
+    /* Celular: la tabla de escenarios muestra lo esencial para que la cuota por casa no quede fuera de la pantalla */
+    @media screen and (max-width: 640px) {
+      .tbl-escenarios th:nth-child(2), .tbl-escenarios td:nth-child(2),
+      .tbl-escenarios th:nth-child(3), .tbl-escenarios td:nth-child(3) { display: none; }
+      .tbl-escenarios th, .tbl-escenarios td { padding-left: 5px !important; padding-right: 5px !important; }
+      .tbl-escenarios tbody { font-size: 11px !important; }
+      .tbl-escenarios th { font-size: 9.5px !important; letter-spacing: 0 !important; }
+      .tbl-escenarios .badge-row { font-size: 9px; }
+    }
+    .badge-row { display: block; width: fit-content; margin-top: 4px; white-space: nowrap; line-height: 1.4; }
     /* ===== Controles editables con color ===== */
     input[type=range].slider{-webkit-appearance:none;appearance:none;width:100%;height:12px;border-radius:999px;cursor:pointer;outline:none;
       background:linear-gradient(to right,var(--sc) 0%,var(--sc) var(--p,50%),var(--st) var(--p,50%),var(--st) 100%)}
@@ -560,7 +570,7 @@
           </div>
 
           <div class="overflow-x-auto">
-            <table class="w-full text-left text-xs sm:text-sm">
+            <table class="tbl-escenarios w-full text-left text-xs sm:text-sm">
               <thead class="bg-slate-50 text-slate-500 uppercase text-[11px] tracking-wider border-b border-slate-200">
                 <tr>
                   <th class="px-4 py-3">Escenario</th>
@@ -577,7 +587,7 @@
                     data-tip-title="Escenario 4h Actual (Sin Fondo de Mtto)"
                     data-tip-desc="Solo cobra combustible quemado ($5,974). Deja al condominio en cero para pagar los $1,013 de filtros y aceite a las 200h.">
                   <td class="px-4 py-3 font-sans font-medium text-slate-700">
-                    4h Actual <span class="text-[10px] text-rose-700 bg-rose-50 px-1.5 py-0.5 rounded border border-rose-200 font-semibold">Sin fondo mtto</span>
+                    4h Actual <span class="badge-row text-[10px] text-rose-700 bg-rose-50 px-1.5 py-0.5 rounded border border-rose-200 font-semibold">Sin fondo mtto</span>
                   </td>
                   <td class="px-4 py-3 text-center font-sans">4 h</td>
                   <td class="px-4 py-3 text-right" id="tdGasoil4hSinMtto">$5,974.08</td>
@@ -591,7 +601,7 @@
                     data-tip-title="Escenario 4h Sostenible (Responsable)"
                     data-tip-desc="Operación responsable a 4 horas diarias que cubre el gasoil y ahorra la reserva técnica completa para que la planta no se dañe.">
                   <td class="px-4 py-3 font-sans font-bold text-emerald-800">
-                    4h Sostenible <span class="text-[10px] text-emerald-700 bg-emerald-100 px-1.5 py-0.5 rounded border border-emerald-300 font-bold">Responsable</span>
+                    4h Sostenible <span class="badge-row text-[10px] text-emerald-700 bg-emerald-100 px-1.5 py-0.5 rounded border border-emerald-300 font-bold">Responsable</span>
                   </td>
                   <td class="px-4 py-3 text-center font-sans font-semibold">4 h</td>
                   <td class="px-4 py-3 text-right" id="tdGasoil4hConMtto">$5,974.08</td>
@@ -605,7 +615,7 @@
                     data-tip-title="Escenario 6h Falla Habitual"
                     data-tip-desc="Cortes frecuentes de 6 horas diarias. Si se encienden 6h cobrando solo 4h, se produce un déficit mensual importante (mira la alerta de abajo).">
                   <td class="px-4 py-3 font-sans font-medium text-slate-800">
-                    6h Habitual <span class="text-[10px] text-sky-700 bg-sky-50 px-1.5 py-0.5 rounded border border-sky-200 font-semibold">Falla real</span>
+                    6h Habitual <span class="badge-row text-[10px] text-sky-700 bg-sky-50 px-1.5 py-0.5 rounded border border-sky-200 font-semibold">Falla real</span>
                   </td>
                   <td class="px-4 py-3 text-center font-sans font-semibold">6 h</td>
                   <td class="px-4 py-3 text-right" id="tdGasoil6h">$8,961.12</td>
@@ -619,7 +629,7 @@
                     data-tip-title="Escenario 7h Falla Severa"
                     data-tip-desc="Cortes severos de 7 horas diarias. Exige 1 servicio técnico mayor cada 28 días.">
                   <td class="px-4 py-3 font-sans font-medium text-rose-800">
-                    7h Crítico <span class="text-[10px] text-rose-700 bg-rose-50 px-1.5 py-0.5 rounded border border-rose-200 font-semibold">Falla severa</span>
+                    7h Crítico <span class="badge-row text-[10px] text-rose-700 bg-rose-50 px-1.5 py-0.5 rounded border border-rose-200 font-semibold">Falla severa</span>
                   </td>
                   <td class="px-4 py-3 text-center font-sans font-semibold">7 h</td>
                   <td class="px-4 py-3 text-right" id="tdGasoil7h">$10,454.64</td>
@@ -765,7 +775,7 @@
   </div>
 
   <script>
-    const VERSION = '2.4.3';
+    const VERSION = '2.4.4';
     // Variables de interfaz
     const inputHoursDay = document.getElementById('inputHoursDay');
     const displayHoursDay = document.getElementById('displayHoursDay');
