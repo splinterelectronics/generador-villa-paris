@@ -48,19 +48,19 @@ $$\text{Costo Integral por Hora de Generador} = \$45.00 + \$5.065 = \mathbf{\$50
 
 ---
 
-## 📊 Matriz Comparativa de Escenarios (Base: Mes de 30 días)
+## 📊 Matriz Comparativa de Cuotas por Vivienda (Base: 75 Casas · Diésel $0.98/L)
 
 | Parámetro | 1. Recaudo Actual (4h s/mtto) | 2. Operación Sostenible (4h) | 3. Falla Habitual (6h) | 4. Falla Severa (7h) |
 | :--- | :---: | :---: | :---: | :---: |
 | **Horas de Uso Diario** | 4 h/día | 4 h/día | 6 h/día | 7 h/día |
 | **Horas Acumuladas/Mes** | 120 h | 120 h | 180 h | 210 h |
 | **Frecuencia de Mantenimiento** | Cada ~50 días | Cada ~50 días | Cada ~33 días | Cada ~28 días |
-| **Gasto Mensual Gasoil** | $5,400.00 | $5,400.00 | $8,100.00 | $9,450.00 |
-| **Reserva Mensual Mtto.** | $0.00 *(Descubierto)* | $607.80 | $911.70 | $1,063.65 |
-| **Presupuesto Total Mensual** | **$5,400.00** | **$6,007.80** | **$9,011.70** | **$10,513.65** |
-| **Déficit Mensual vs Recaudo Actual** | $0.00 | **-$607.80** | **-$3,611.70** | **-$5,113.65** |
-| **Cuota Mensual (Base: 50 casas)** | $108.00 / casa | $120.16 / casa | $180.24 / casa | $210.28 / casa |
-| **Cuota Mensual (Base: 60 casas)** | $90.00 / casa | $100.13 / casa | $150.20 / casa | $175.23 / casa |
+| **Gasto Mensual Gasoil ($0.98/L)** | $5,974.08 | $5,974.08 | $8,961.12 | $10,454.64 |
+| **Reserva Mensual Mtto. ($5.07/h)** | $0.00 *(Descubierto)* | $607.80 | $911.70 | $1,063.65 |
+| **Presupuesto Total Mensual** | **$5,974.08** | **$6,581.88** | **$9,872.82** | **$11,518.29** |
+| **Déficit Mensual vs Recaudo Actual** | $0.00 | **-$607.80** | **-$3,898.74** | **-$5,544.21** |
+| **Cuota Mensual por Casa (75 casas)** | **$79.65 / casa** | **$87.76 / casa** | **$131.64 / casa** | **$153.58 / casa** |
+| **Costo Diario Aprox. por Casa** | ~$2.65 / día | ~$2.93 / día | ~$4.39 / día | ~$5.12 / día |
 
 ---
 
