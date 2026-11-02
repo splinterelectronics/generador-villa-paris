@@ -4,14 +4,17 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tabla de Cálculo - VILLA PARÍS A</title>
-  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="icon" type="image/svg+xml" href="docs/logo-eiffel-a.svg">
+  <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <style>
     @media print {
       .no-print { display: none !important; }
       body { background: white !important; color: black !important; padding: 0 !important; }
       .print-shadow-none { box-shadow: none !important; border: 1px solid #cbd5e1 !important; }
+    }
+    .has-tip {
+      cursor: help;
     }
   </style>
 </head>
@@ -30,32 +33,19 @@
                 <stop offset="100%" stop-color="#D97706"/>
               </linearGradient>
             </defs>
-            <!-- Antena y luz de baliza -->
             <line x1="50" y1="4" x2="50" y2="16" stroke="url(#eiffelGrad)" stroke-width="2.5" stroke-linecap="round"/>
             <circle cx="50" cy="5" r="2.5" fill="#FFFBEB"/>
-
-            <!-- Cúpula y Sección Superior de la A -->
             <path d="M 47 16 L 53 16 L 54 32 L 46 32 Z" fill="url(#eiffelGrad)"/>
             <line x1="43" y1="33" x2="57" y2="33" stroke="url(#eiffelGrad)" stroke-width="2.5" stroke-linecap="round"/>
-
-            <!-- Sección Media con Celosía -->
             <path d="M 46 34 L 40 56 L 60 56 L 54 34 Z" fill="none" stroke="url(#eiffelGrad)" stroke-width="2.5"/>
             <line x1="44" y1="35" x2="56" y2="55" stroke="url(#eiffelGrad)" stroke-width="1.5" opacity="0.85"/>
             <line x1="56" y1="35" x2="44" y2="55" stroke="url(#eiffelGrad)" stroke-width="1.5" opacity="0.85"/>
-
-            <!-- Travesaño Principal de la Letra 'A' (Plataforma 1) -->
             <rect x="31" y="56" width="38" height="5" rx="1.5" fill="url(#eiffelGrad)"/>
             <line x1="28" y1="62.5" x2="72" y2="62.5" stroke="url(#eiffelGrad)" stroke-width="2.5" stroke-linecap="round"/>
-
-            <!-- Patas de la A / Pilares de la Torre Eiffel -->
             <path d="M 37 63.5 L 21 95 L 32 95 L 44 63.5 Z" fill="url(#eiffelGrad)"/>
             <path d="M 63 63.5 L 79 95 L 68 95 L 56 63.5 Z" fill="url(#eiffelGrad)"/>
-
-            <!-- Arco Inferior Clásico de la Torre Eiffel -->
             <path d="M 30 95 Q 50 68 70 95" fill="none" stroke="url(#eiffelGrad)" stroke-width="4" stroke-linecap="round"/>
             <path d="M 34 95 Q 50 74 66 95" fill="none" stroke="#FDE68A" stroke-width="1.5" opacity="0.9"/>
-
-            <!-- Chispa de energía en la cúspide -->
             <path d="M 50 2 L 52 7 L 49 8 L 51 13" stroke="#FFF" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
           </svg>
         </div>
@@ -91,12 +81,26 @@
           <p class="text-slate-400 text-sm mt-1">Planta Cummins / Stamford 440 kVA · 352 kW Continuos (Factor de Potencia 0.8)</p>
         </div>
         <div class="flex flex-wrap items-center gap-3">
-          <div class="bg-slate-900/90 border border-slate-700 px-4 py-2.5 rounded-xl">
-            <span class="block text-xs text-slate-400">Costo Hora Operativa</span>
+          <!-- Badge Costo Hora -->
+          <div class="bg-slate-900/90 border border-slate-700 px-4 py-2.5 rounded-xl has-tip"
+               data-tip-title="Costo Hora Operativa"
+               data-tip-desc="Costo total integrado de tener la planta encendida durante 1 hora. Incluye el gasoil quemado más la porción de desgaste del motor reservada para el cambio de aceite y filtros."
+               data-tip-formula="Gasto Gasoil/h ($45.00) + Reserva Mtto/h ($5.07) = $50.07/hora">
+            <div class="flex items-center justify-between gap-2">
+              <span class="block text-xs text-slate-400">Costo Hora Operativa</span>
+              <i class="fa-solid fa-circle-question text-[11px] text-slate-500"></i>
+            </div>
             <span id="badgeCostPerHour" class="text-lg font-bold text-amber-400">$50.07 / h</span>
           </div>
-          <div class="bg-slate-900/90 border border-slate-700 px-4 py-2.5 rounded-xl">
-            <span class="block text-xs text-slate-400">Costo por kWh Generado</span>
+          <!-- Badge Costo kWh -->
+          <div class="bg-slate-900/90 border border-slate-700 px-4 py-2.5 rounded-xl has-tip"
+               data-tip-title="Costo por kWh Generado"
+               data-tip-desc="Cuánto le cuesta a la urbanización generar cada kilovatio-hora de electricidad. Permite comparar la autogeneración diésel con las tarifas de la red pública."
+               data-tip-formula="Costo Total por Hora ÷ Potencia Demandada en kW">
+            <div class="flex items-center justify-between gap-2">
+              <span class="block text-xs text-slate-400">Costo por kWh Generado</span>
+              <i class="fa-solid fa-circle-question text-[11px] text-slate-500"></i>
+            </div>
             <span id="badgeCostPerKwh" class="text-lg font-bold text-emerald-400">$0.250 / kWh</span>
           </div>
         </div>
@@ -120,8 +124,13 @@
 
             <!-- Horas al día -->
             <div>
-              <div class="flex justify-between items-center mb-1">
-                <label for="inputHoursDay" class="text-sm font-medium text-slate-300">Horas de uso diario deseadas</label>
+              <div class="flex justify-between items-center mb-1 has-tip"
+                   data-tip-title="Horas de Uso Diario Deseadas"
+                   data-tip-desc="Promedio de horas al día que el condominio decide o necesita encender la planta eléctrica durante los cortes. Se multiplica por 30 días para calcular los totales mensuales.">
+                <label for="inputHoursDay" class="text-sm font-medium text-slate-300 flex items-center gap-1.5 cursor-pointer">
+                  <span>Horas de uso diario deseadas</span>
+                  <i class="fa-solid fa-circle-question text-xs text-slate-500"></i>
+                </label>
                 <span id="displayHoursDay" class="text-sm font-bold text-amber-400">6.0 hrs/día</span>
               </div>
               <input type="range" id="inputHoursDay" min="1" max="24" step="0.5" value="6" 
@@ -135,12 +144,16 @@
               </div>
             </div>
 
-            <!-- SECCIÓN NUEVA: Carga Eléctrica Activa (kW / kWh) -->
-            <div class="p-3.5 rounded-xl bg-slate-900/90 border border-amber-500/30 space-y-3">
+            <!-- SECCIÓN: Carga Eléctrica Activa (kW / kWh) -->
+            <div class="p-3.5 rounded-xl bg-slate-900/90 border border-amber-500/30 space-y-3 has-tip"
+                 data-tip-title="Demanda de Carga Comunitaria (kW)"
+                 data-tip-desc="Potencia activa continua que todas las casas consumen al mismo tiempo (aires acondicionados, neveras, iluminación). A mayor exigencia en kW, el motor inyecta más diésel por hora según su curva de rendimiento."
+                 data-tip-formula="Potencia Aparente (kVA) = kW ÷ 0.8 (Factor de Potencia)">
               <div class="flex justify-between items-start">
                 <div>
-                  <label for="inputKw" class="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-1.5">
+                  <label for="inputKw" class="text-xs font-bold uppercase tracking-wider text-amber-400 flex items-center gap-1.5 cursor-pointer">
                     <i class="fa-solid fa-plug-circle-bolt"></i> Demanda de Carga Comunitaria (kW)
+                    <i class="fa-solid fa-circle-question text-xs text-amber-500/70"></i>
                   </label>
                   <p class="text-[11px] text-slate-400 mt-0.5">Potencia continua exigida a la planta (energía = kW × h)</p>
                 </div>
@@ -155,11 +168,17 @@
 
               <!-- Detalles de carga: % de planta y kW por vivienda -->
               <div class="grid grid-cols-2 gap-2 text-[11px]">
-                <div class="bg-slate-800/80 px-2.5 py-1.5 rounded-lg border border-slate-700/60">
+                <div class="bg-slate-800/80 px-2.5 py-1.5 rounded-lg border border-slate-700/60 has-tip"
+                     data-tip-title="Porcentaje de Capacidad de Planta"
+                     data-tip-desc="Nivel de exigencia mecánica al motor respecto a su potencia nominal continua continua de 352 kW (440 kVA × 0.8 FP)."
+                     data-tip-formula="kW Actuales ÷ 352 kW Máx. Continuo">
                   <span class="text-slate-400 block">% Capacidad Planta:</span>
                   <span id="displayLoadPercent" class="font-bold text-sky-300 font-mono">56.8% de 352 kW</span>
                 </div>
-                <div class="bg-slate-800/80 px-2.5 py-1.5 rounded-lg border border-slate-700/60">
+                <div class="bg-slate-800/80 px-2.5 py-1.5 rounded-lg border border-slate-700/60 has-tip"
+                     data-tip-title="Demanda Promedio por Vivienda"
+                     data-tip-desc="Consumo eléctrico promedio disponible para cada casa en ese momento. Un valor de 4 kW permite tener 1 a 2 aires acondicionados, nevera e iluminación básica encendidos simultáneamente."
+                     data-tip-formula="kW Totales de la Planta ÷ N° de Casas">
                   <span class="text-slate-400 block">Demanda por Casa:</span>
                   <span id="displayLoadPerHome" class="font-bold text-amber-300 font-mono">4.0 kW / casa</span>
                 </div>
@@ -184,9 +203,13 @@
 
             <!-- Consumo L/h (Sincronizado con la curva Cummins) -->
             <div>
-              <div class="flex justify-between items-center mb-1">
-                <label for="inputLitrosHora" class="block text-sm font-medium text-slate-300">
-                  Consumo estimado (Litros / hora)
+              <div class="flex justify-between items-center mb-1 has-tip"
+                   data-tip-title="Consumo de Gasoil (Litros / hora)"
+                   data-tip-desc="Volumen de combustible que quema la planta por cada hora de funcionamiento. Se sincroniza automáticamente con la curva del fabricante Cummins según los kW demandados, pero también puedes editarlo a mano si tienes mediciones de campo."
+                   data-tip-formula="Curva Cummins Stamford: 150kW=32 L/h · 200kW=45 L/h · 250kW=57 L/h">
+                <label for="inputLitrosHora" class="block text-sm font-medium text-slate-300 flex items-center gap-1.5 cursor-pointer">
+                  <span>Consumo estimado (Litros / hora)</span>
+                  <i class="fa-solid fa-circle-question text-xs text-slate-500"></i>
                 </label>
                 <span id="labelCurvaStatus" class="text-[11px] text-amber-400/90 font-mono">Calibrado con Curva</span>
               </div>
@@ -207,9 +230,14 @@
 
             <!-- Precio Gasoil -->
             <div>
-              <label for="inputPrecioLitro" class="block text-sm font-medium text-slate-300 mb-1">
-                Precio del Gasoil por Litro
-              </label>
+              <div class="flex justify-between items-center mb-1 has-tip"
+                   data-tip-title="Precio del Diésel puesto en sitio"
+                   data-tip-desc="Costo unitario por litro en dólares (USD). Debe incluir el flete o transporte hasta el tanque de la urbanización si aplica.">
+                <label for="inputPrecioLitro" class="block text-sm font-medium text-slate-300 flex items-center gap-1.5 cursor-pointer">
+                  <span>Precio del Gasoil por Litro</span>
+                  <i class="fa-solid fa-circle-question text-xs text-slate-500"></i>
+                </label>
+              </div>
               <div class="relative rounded-xl shadow-sm">
                 <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400 text-sm">
                   $
@@ -226,9 +254,13 @@
 
             <!-- Mantenimiento Costo e Intervalo -->
             <div class="grid grid-cols-2 gap-3">
-              <div>
-                <label for="inputCostoMantenimiento" class="block text-xs font-medium text-slate-300 mb-1">
-                  Costo Mantenimiento ($)
+              <div class="has-tip"
+                   data-tip-title="Costo Facturado del Servicio Mayor"
+                   data-tip-desc="Monto total cobrado por el proveedor técnico para el cambio completo de lubricante y consumibles: 44L aceite Shell Rotella 15W40 ($550), 2 filtros gasoil FS1000 ($116), filtro aceite LF9009 ($94), trampa de agua WF2076 ($65) y mano de obra ($188)."
+                   data-tip-formula="Factura RKN Supply FVSER/2026/00452 = $1,013.00">
+                <label for="inputCostoMantenimiento" class="block text-xs font-medium text-slate-300 mb-1 flex items-center justify-between">
+                  <span>Costo Mantenimiento ($)</span>
+                  <i class="fa-solid fa-circle-question text-[10px] text-slate-500"></i>
                 </label>
                 <div class="relative rounded-xl shadow-sm">
                   <span class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400 text-xs">$</span>
@@ -236,9 +268,12 @@
                     class="block w-full rounded-xl border border-slate-700 bg-slate-900/90 pl-7 pr-3 py-2 text-sm text-white focus:border-amber-500 focus:ring-1 focus:ring-amber-500">
                 </div>
               </div>
-              <div>
-                <label for="inputIntervaloHoras" class="block text-xs font-medium text-slate-300 mb-1">
-                  Intervalo Mantenimiento
+              <div class="has-tip"
+                   data-tip-title="Intervalo Técnico de Servicio"
+                   data-tip-desc="Frecuencia estricta indicada por el fabricante de motores diésel de servicio pesado. Al cumplir 200 horas de reloj en el horómetro, el aceite pierde sus aditivos de lubricación y debe ser cambiado de inmediato para evitar desgaste del cigüeñal y camisas.">
+                <label for="inputIntervaloHoras" class="block text-xs font-medium text-slate-300 mb-1 flex items-center justify-between">
+                  <span>Intervalo Horas</span>
+                  <i class="fa-solid fa-circle-question text-[10px] text-slate-500"></i>
                 </label>
                 <div class="relative rounded-xl shadow-sm">
                   <input type="number" id="inputIntervaloHoras" value="200" step="10" min="50" max="500"
@@ -249,16 +284,27 @@
             </div>
 
             <!-- Amortización por hora calculada -->
-            <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-700/80 flex items-center justify-between text-xs">
-              <span class="text-slate-400">Reserva de mantenimiento requerida:</span>
+            <div class="p-3 rounded-xl bg-slate-900/80 border border-slate-700/80 flex items-center justify-between text-xs has-tip"
+                 data-tip-title="Amortización Técnica por Hora"
+                 data-tip-desc="Porción del costo del servicio mayor que se desgasta en cada hora que la planta está encendida. Este valor se va acumulando hora tras hora para tener los $1,013 listos exactamente a las 200 horas de uso."
+                 data-tip-formula="Costo Servicio ($1,013.00) ÷ Intervalo (200 horas) = $5.065 / hora">
+              <span class="text-slate-400 flex items-center gap-1.5">
+                <span>Reserva mtto. requerida:</span>
+                <i class="fa-solid fa-circle-question text-[11px] text-amber-500/70"></i>
+              </span>
               <span id="labelAmortizacionPorHora" class="font-semibold text-amber-300">$5.07 / hora de uso</span>
             </div>
 
             <!-- Número de viviendas -->
             <div class="border-t border-slate-700/60 pt-2">
-              <label for="inputViviendas" class="block text-sm font-medium text-slate-300 mb-1">
-                N° de Casas / Viviendas en Villa París A
-              </label>
+              <div class="flex justify-between items-center mb-1 has-tip"
+                   data-tip-title="Censo de Viviendas / Copropietarios"
+                   data-tip-desc="Cantidad de casas de Villa París A entre las que se divide el presupuesto mensual para obtener la cuota de condominio sugerida por unidad.">
+                <label for="inputViviendas" class="block text-sm font-medium text-slate-300 flex items-center gap-1.5 cursor-pointer">
+                  <span>N° de Casas / Viviendas en Villa París A</span>
+                  <i class="fa-solid fa-circle-question text-xs text-slate-500"></i>
+                </label>
+              </div>
               <div class="relative rounded-xl shadow-sm">
                 <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3 text-slate-400 text-sm">
                   <i class="fa-solid fa-house"></i>
@@ -281,23 +327,45 @@
 
         <!-- Tarjetas Principales del Escenario Seleccionado -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <!-- Gasto Mensual Combustible -->
-          <div class="bg-slate-800/60 border border-slate-700/80 rounded-2xl p-4 shadow">
-            <span class="text-xs text-slate-400 uppercase tracking-wider block font-medium">Combustible Mensual</span>
+
+          <!-- 1. Gasto Mensual Combustible -->
+          <div class="bg-slate-800/60 border border-slate-700/80 rounded-2xl p-4 shadow has-tip transition hover:border-sky-500/50"
+               data-tip-title="⛽ Gasto Mensual en Combustible"
+               data-tip-desc="Dinero necesario exclusivamente para comprar el gasoil que se quema en el mes según las horas diarias elegidas. No incluye filtros ni repuestos mecánicos."
+               data-tip-formula="Horas/Día × 30 días × Consumo (L/h) × Precio Gasoil ($/L)">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-slate-400 uppercase tracking-wider block font-medium">Combustible Mensual</span>
+              <i class="fa-solid fa-circle-question text-xs text-slate-500"></i>
+            </div>
             <div id="statFuelMonthly" class="text-2xl font-bold text-sky-400 mt-1">$8,100.00</div>
             <div id="statFuelLiters" class="text-xs text-slate-400 mt-1">8,100 Litros al mes</div>
           </div>
 
-          <!-- Reserva Mensual Mantenimiento -->
-          <div class="bg-slate-800/60 border border-slate-700/80 rounded-2xl p-4 shadow">
-            <span class="text-xs text-slate-400 uppercase tracking-wider block font-medium">Reserva Mantenimiento</span>
+          <!-- 2. Reserva Mensual Mantenimiento -->
+          <div class="bg-slate-800/60 border border-amber-500/40 rounded-2xl p-4 shadow has-tip transition hover:border-amber-400 bg-amber-500/[0.03]"
+               data-tip-title="🔧 Reserva de Mantenimiento (La 'Alcancía' del Motor)"
+               data-tip-desc="Fondo de ahorro obligatorio para el motor. Cada hora de uso gasta lubricante y filtros. Este dinero se guarda mes a mes para que cuando la planta llegue a las 200 horas de uso, el dinero para comprar los 44L de aceite, 4 filtros y pagar al mecánico ya esté listo en el banco sin pedir derramas extraordinarias."
+               data-tip-formula="Horas de uso del mes × ($1,013 Factura ÷ 200 horas) = Horas × $5.07">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-amber-300 uppercase tracking-wider block font-semibold flex items-center gap-1">
+                <span>Reserva Mtto.</span>
+                <span class="text-[9px] bg-amber-500/20 px-1 py-0.2 rounded text-amber-300 font-normal">Fondo</span>
+              </span>
+              <i class="fa-solid fa-circle-question text-xs text-amber-400"></i>
+            </div>
             <div id="statMaintMonthly" class="text-2xl font-bold text-amber-400 mt-1">$911.70</div>
             <div id="statMaintDays" class="text-xs text-slate-400 mt-1">1 servicio cada 33 días</div>
           </div>
 
-          <!-- Total Integral Mensual -->
-          <div class="bg-gradient-to-br from-amber-500/10 to-slate-800 border border-amber-500/30 rounded-2xl p-4 shadow">
-            <span class="text-xs text-amber-300 uppercase tracking-wider block font-medium">Presupuesto Mensual</span>
+          <!-- 3. Total Integral Mensual -->
+          <div class="bg-gradient-to-br from-amber-500/10 to-slate-800 border border-amber-500/30 rounded-2xl p-4 shadow has-tip transition hover:border-amber-400"
+               data-tip-title="💰 Presupuesto Mensual Integral y Cuota por Casa"
+               data-tip-desc="El costo real y autosuficiente para operar la planta eléctrica sin endeudarse. Es la suma del diésel quemado más el fondo de mantenimiento preventivo, dividido entre el total de viviendas."
+               data-tip-formula="Combustible Mensual + Reserva de Mantenimiento = Total Mensual ÷ N° de Casas">
+            <div class="flex items-center justify-between">
+              <span class="text-xs text-amber-300 uppercase tracking-wider block font-medium">Presupuesto Mensual</span>
+              <i class="fa-solid fa-circle-question text-xs text-amber-400"></i>
+            </div>
             <div id="statTotalMonthly" class="text-2xl font-black text-white mt-1">$9,011.70</div>
             <div id="statPerHomeMonthly" class="text-xs font-semibold text-amber-400 mt-1">$180.24 / vivienda</div>
           </div>
@@ -305,31 +373,60 @@
 
         <!-- Fila de Métricas Eléctricas Clave (kWh y Eficiencia) -->
         <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
-          <div class="p-3.5 bg-slate-800/40 border border-slate-700 rounded-xl text-xs">
-            <span class="text-slate-400 block">Energía Generada / Mes:</span>
+          <!-- Energía Generada -->
+          <div class="p-3.5 bg-slate-800/40 border border-slate-700 rounded-xl text-xs has-tip transition hover:border-slate-500"
+               data-tip-title="⚡ Energía Generada al Mes (kWh)"
+               data-tip-desc="Cantidad total de electricidad neta inyectada al conjunto durante el mes. Permite auditar el suministro colectivo frente a las facturas de Corpoelec."
+               data-tip-formula="Horas de uso al mes × Demanda activa continua en kW">
+            <div class="flex items-center justify-between">
+              <span class="text-slate-400 block">Energía Generada / Mes:</span>
+              <i class="fa-solid fa-circle-question text-[10px] text-slate-500"></i>
+            </div>
             <span id="statKwhMonthly" class="text-base font-bold text-white font-mono mt-0.5 block">36,000 kWh</span>
             <span id="statKwhPerHome" class="text-[10px] text-slate-400">720 kWh por vivienda / mes</span>
           </div>
-          <div class="p-3.5 bg-slate-800/40 border border-slate-700 rounded-xl text-xs">
-            <span class="text-slate-400 block">Rendimiento Energético:</span>
+
+          <!-- Rendimiento Energético -->
+          <div class="p-3.5 bg-slate-800/40 border border-slate-700 rounded-xl text-xs has-tip transition hover:border-sky-500/50"
+               data-tip-title="📊 Rendimiento Energético (Eficiencia Diésel)"
+               data-tip-desc="Indica cuántos kilovatios-hora de luz produce el generador por cada litro de diésel consumido. Motores industriales de 440 kVA operan óptimamente entre 4.2 y 4.7 kWh por litro."
+               data-tip-formula="Potencia en kW ÷ Consumo en L/h (o Litros consumidos por cada kWh)">
+            <div class="flex items-center justify-between">
+              <span class="text-slate-400 block">Rendimiento Energético:</span>
+              <i class="fa-solid fa-circle-question text-[10px] text-slate-500"></i>
+            </div>
             <span id="statEfficiency" class="text-base font-bold text-sky-300 font-mono mt-0.5 block">4.44 kWh / Litro</span>
             <span class="text-[10px] text-slate-400">0.225 L por cada kWh generado</span>
           </div>
-          <div class="p-3.5 bg-slate-800/40 border border-slate-700 rounded-xl text-xs">
-            <span class="text-slate-400 block">Costo Neto por kWh:</span>
+
+          <!-- Costo Neto por kWh -->
+          <div class="p-3.5 bg-slate-800/40 border border-slate-700 rounded-xl text-xs has-tip transition hover:border-emerald-500/50"
+               data-tip-title="💵 Costo Neto por kWh Generado"
+               data-tip-desc="El costo real integral de tener encendido un bombillo o un aire acondicionado en Villa París A. Considera el gasoil quemado y la depreciación de filtros y aceite."
+               data-tip-formula="Presupuesto Mensual Total ($) ÷ Total de kWh Producidos">
+            <div class="flex items-center justify-between">
+              <span class="text-slate-400 block">Costo Neto por kWh:</span>
+              <i class="fa-solid fa-circle-question text-[10px] text-slate-500"></i>
+            </div>
             <span id="statUnitCostKwh" class="text-base font-bold text-emerald-400 font-mono mt-0.5 block">$0.250 / kWh</span>
             <span class="text-[10px] text-slate-400">Incluye gasoil + servicio técnico</span>
           </div>
         </div>
 
         <!-- Proyección Anual Banner -->
-        <div class="p-4 bg-slate-800/40 border border-slate-700 rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-3">
+        <div class="p-4 bg-slate-800/40 border border-slate-700 rounded-2xl flex flex-col sm:flex-row justify-between items-center gap-3 has-tip"
+             data-tip-title="📅 Proyección Operativa Anual (12 Meses)"
+             data-tip-desc="Muestra el flujo de dinero acumulado en 1 año completo bajo este régimen de uso y cuántos cambios de aceite completos (servicios de 200h) tendrá que realizar la junta directiva."
+             data-tip-formula="Presupuesto Mensual × 12 meses | Servicios al año = (Horas diarias × 365) ÷ 200h">
           <div class="flex items-center gap-3">
             <div class="w-10 h-10 rounded-xl bg-slate-700/50 flex items-center justify-center text-slate-300">
               <i class="fa-solid fa-calendar-days text-lg"></i>
             </div>
             <div>
-              <span class="text-xs text-slate-400">Proyección Operativa a 12 Meses (Año Completo)</span>
+              <span class="text-xs text-slate-400 flex items-center gap-1.5">
+                <span>Proyección Operativa a 12 Meses (Año Completo)</span>
+                <i class="fa-solid fa-circle-question text-[10px] text-slate-500"></i>
+              </span>
               <div id="statTotalAnnual" class="text-lg font-bold text-white">$108,140.40 anuales</div>
             </div>
           </div>
@@ -362,7 +459,10 @@
               </thead>
               <tbody class="divide-y divide-slate-700/40 font-mono text-xs sm:text-sm">
                 <!-- Escenario 1: 4h Actual (Sin mtto) -->
-                <tr class="hover:bg-slate-700/20 text-slate-400">
+                <tr class="hover:bg-slate-700/20 text-slate-400 has-tip"
+                    data-tip-title="Escenario 4h Actual (Sin Fondo de Mtto)"
+                    data-tip-desc="Es el esquema que se aplica habitualmente cuando solo se recauda para el combustible quemado ($5,400). Deja en cero la provisión para repuestos, por lo que a las 200h no habrá fondos para pagar los $1,013 del servicio mayor."
+                    data-tip-formula="4h × 30 días × Gasoil sin reserva de repuestos">
                   <td class="px-4 py-3 font-sans font-medium text-slate-300">
                     4h Actual <span class="text-[10px] text-rose-400 bg-rose-500/10 px-1.5 py-0.5 rounded border border-rose-500/20">Sin fondo mtto</span>
                   </td>
@@ -374,7 +474,10 @@
                 </tr>
 
                 <!-- Escenario 2: 4h Sostenible (Con mtto) -->
-                <tr class="hover:bg-slate-700/20 text-slate-300">
+                <tr class="hover:bg-slate-700/20 text-slate-300 has-tip"
+                    data-tip-title="Escenario 4h Sostenible (Responsable)"
+                    data-tip-desc="Operación equilibrada a 4 horas diarias que incluye tanto el gasoil como la reserva proporcional de mantenimiento ($607.80/mes). Garantiza la vida útil del motor y evita paradas por falta de filtros."
+                    data-tip-formula="Gasoil ($5,400) + Reserva Mtto ($607.80) = $6,007.80 mensual">
                   <td class="px-4 py-3 font-sans font-medium text-slate-200">
                     4h Sostenible <span class="text-[10px] text-emerald-400 bg-emerald-500/10 px-1.5 py-0.5 rounded border border-emerald-500/20">Responsable</span>
                   </td>
@@ -386,7 +489,10 @@
                 </tr>
 
                 <!-- Escenario 3: 6h Falla Habitual -->
-                <tr class="hover:bg-slate-700/20 text-slate-200 bg-amber-500/5">
+                <tr class="hover:bg-slate-700/20 text-slate-200 bg-amber-500/5 has-tip"
+                    data-tip-title="Escenario 6h Falla Habitual"
+                    data-tip-desc="Representa la realidad frecuente de los cortes eléctricos en la zona (6 horas diarias). Si la asamblea no aprueba esta cuota y enciende 6 horas cobrando solo 4 horas, se generará una quiebra operativa acelerada."
+                    data-tip-formula="6h × 30 días × Costo Operativo Integral">
                   <td class="px-4 py-3 font-sans font-medium text-amber-300">
                     6h Habitual <span class="text-[10px] text-sky-400 bg-sky-500/10 px-1.5 py-0.5 rounded border border-sky-500/20">Falla real</span>
                   </td>
@@ -398,7 +504,10 @@
                 </tr>
 
                 <!-- Escenario 4: 7h Falla Crítica -->
-                <tr class="hover:bg-slate-700/20 text-slate-200">
+                <tr class="hover:bg-slate-700/20 text-slate-200 has-tip"
+                    data-tip-title="Escenario 7h Falla Severa / Crítica"
+                    data-tip-desc="Diseñado para temporadas de contingencia eléctrica severa. Cada 28 días el motor completa un ciclo de 200 horas y requiere servicio técnico inmediato."
+                    data-tip-formula="7h × 30 días × Costo Operativo Integral">
                   <td class="px-4 py-3 font-sans font-medium text-rose-300">
                     7h Crítico <span class="text-[10px] text-rose-400 bg-rose-500/10 px-1.5 py-0.5 rounded border border-rose-500/20">Falla severa</span>
                   </td>
@@ -410,7 +519,10 @@
                 </tr>
 
                 <!-- Escenario Dinámico Actual -->
-                <tr class="bg-slate-900 border-t-2 border-amber-500/40 text-amber-300">
+                <tr class="bg-slate-900 border-t-2 border-amber-500/40 text-amber-300 has-tip"
+                    data-tip-title="Ajuste Actual en Pantalla"
+                    data-tip-desc="Resultado en tiempo real de los controles deslizantes que has manipulado en el panel izquierdo."
+                    data-tip-formula="Parámetros personalizados seleccionados">
                   <td class="px-4 py-3 font-sans font-bold">
                     Ajuste Actual en Pantalla
                   </td>
@@ -426,10 +538,16 @@
         </div>
 
         <!-- Alerta de Déficit -->
-        <div id="boxDeficitAlert" class="p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-start gap-3">
+        <div id="boxDeficitAlert" class="p-4 rounded-xl bg-rose-500/10 border border-rose-500/30 flex items-start gap-3 has-tip"
+             data-tip-title="⚠️ Riesgo de Déficit Financiero y Rotura de Motor"
+             data-tip-desc="Muestra cuánto dinero falta cada mes si la planta se enciende más horas de las que se cobran o si se omite la reserva del motor. Este hueco presupuestario suele obligar a apagar la planta a mitad de mes."
+             data-tip-formula="Presupuesto Requerido del Escenario − Recaudo Actual de 4 Horas">
           <i class="fa-solid fa-triangle-exclamation text-rose-400 text-lg mt-0.5"></i>
           <div class="text-xs text-rose-200 space-y-1">
-            <span class="font-bold text-sm text-rose-300 block">Déficit Financiero Mensual Detectado:</span>
+            <span class="font-bold text-sm text-rose-300 block flex items-center gap-1.5">
+              <span>Déficit Financiero Mensual Detectado:</span>
+              <i class="fa-solid fa-circle-question text-xs text-rose-400/80"></i>
+            </span>
             <p id="txtDeficitDetail">
               Si se enciende la planta durante las 6 horas de corte habitual y solo se recaudan las 4 horas actuales ($5,400), el déficit operativo es de <strong class="text-white">-$3,611.70 cada mes</strong>, poniendo en riesgo inmediato la continuidad del servicio y el fondo del motor.
             </p>
@@ -479,6 +597,21 @@
     </div>
 
   </main>
+
+  <!-- Ventana Emergente Flotante (Tooltip Popover Inteligente) -->
+  <div id="appTooltip" class="fixed z-50 hidden pointer-events-none transition-opacity duration-150 max-w-xs sm:max-w-sm w-80 p-3.5 bg-slate-950/95 border border-amber-500/40 rounded-2xl shadow-2xl backdrop-blur-md text-slate-200">
+    <div class="flex items-center gap-2 mb-1.5 pb-1.5 border-b border-slate-800">
+      <div id="tipIcon" class="w-6 h-6 rounded-lg bg-amber-500/10 border border-amber-500/30 flex items-center justify-center text-amber-400 text-xs shrink-0">
+        <i class="fa-solid fa-circle-info"></i>
+      </div>
+      <h5 id="tipTitle" class="font-bold text-white text-xs tracking-wide">Título</h5>
+    </div>
+    <p id="tipDesc" class="text-[11px] text-slate-300 leading-relaxed">Descripción</p>
+    <div id="tipFormulaBox" class="mt-2 pt-2 border-t border-slate-800/80 hidden">
+      <span class="text-[10px] text-slate-400 block font-semibold uppercase tracking-wider">Cálculo / Fórmula:</span>
+      <span id="tipFormula" class="text-[10px] font-mono text-amber-300 block mt-0.5 bg-slate-900/80 px-2 py-1 rounded border border-slate-800">Fórmula</span>
+    </div>
+  </div>
 
   <!-- Notificación Toast -->
   <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 transition-all duration-300 bg-emerald-600 text-white px-5 py-3 rounded-xl shadow-2xl flex items-center gap-3">
@@ -559,18 +692,24 @@
     const toast = document.getElementById('toast');
     const toastMsg = document.getElementById('toastMsg');
 
+    // Componentes del Tooltip Flotante
+    const appTooltip = document.getElementById('appTooltip');
+    const tipTitle = document.getElementById('tipTitle');
+    const tipDesc = document.getElementById('tipDesc');
+    const tipFormulaBox = document.getElementById('tipFormulaBox');
+    const tipFormula = document.getElementById('tipFormula');
+
     // Curva técnica oficial Cummins Stamford 440 kVA (352 kW continuo)
-    // Puntos [kW, Litros/h promedio]:
     const cumminsCurve = [
       [0, 8.0],
       [100, 22.0],
-      [150, 32.0],     // Rango 30 - 34
-      [176, 39.5],     // 50% de carga nominal (220 kVA)
-      [200, 44.5],     // Rango 42 - 47 (~45.0 L/h habitual)
-      [250, 57.0],     // Rango 54 - 60
-      [300, 68.5],     // Rango 65 - 72
-      [352, 76.5],     // 100% Prime continuo
-      [400, 81.5]      // Rango 78 - 85 (Standby máx)
+      [150, 32.0],
+      [176, 39.5],
+      [200, 44.5],
+      [250, 57.0],
+      [300, 68.5],
+      [352, 76.5],
+      [400, 81.5]
     ];
 
     function interpolateLitersFromKw(kw) {
@@ -592,14 +731,12 @@
       return '$' + val.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
     }
 
-    // Bandera para no sobreescribir si el usuario escribe a mano en inputLitrosHora
     let isAutoCalibrated = true;
 
     function onKwChanged() {
       const kw = parseFloat(inputKw.value) || 200;
       const homes = parseInt(inputViviendas.value, 10) || 50;
 
-      // Actualizar display de kW y kVA
       const kva = kw / 0.8;
       const loadPercent = (kw / 352) * 100;
       const kwPerHome = kw / homes;
@@ -609,7 +746,6 @@
       displayLoadPercent.innerText = `${loadPercent.toFixed(1)}% de 352 kW`;
       displayLoadPerHome.innerText = `${kwPerHome.toFixed(2)} kW / casa`;
 
-      // Calcular consumo en L/h
       const estLiters = interpolateLitersFromKw(kw);
       if (isAutoCalibrated) {
         inputLitrosHora.value = estLiters.toFixed(1);
@@ -619,7 +755,6 @@
 
       txtLitersHint.innerText = `Según curva Cummins 440 kVA: a ${kw.toFixed(0)} kW (${loadPercent.toFixed(1)}% de carga) corresponde ~${estLiters.toFixed(1)} L/h.`;
 
-      // Resaltar preset activo si coincide
       btnKwPresets.forEach(btn => {
         const btnKw = parseFloat(btn.dataset.kw);
         if (Math.abs(btnKw - kw) < 2) {
@@ -648,7 +783,6 @@
       const maintReservePerHour = intervalHours > 0 ? (costMaint / intervalHours) : 0;
       const totalCostPerHour = fuelCostPerHour + maintReservePerHour;
 
-      // Métricas por hora y kWh
       const costPerKwh = kw > 0 ? (totalCostPerHour / kw) : 0;
 
       badgeCostPerHour.innerText = `${formatMoney(totalCostPerHour)} / h`;
@@ -663,11 +797,10 @@
       const monthlyTotal = monthlyFuelCost + monthlyMaintReserve;
       const monthlyPerHome = monthlyTotal / homes;
 
-      // Energía generada en el mes
+      // Métricas eléctricas
       const monthlyKwh = monthlyHours * kw;
       const monthlyKwhPerHome = monthlyKwh / homes;
       const kwhPerLiter = (litersHour > 0) ? (kw / litersHour) : 0;
-      const litersPerKwh = (kw > 0) ? (litersHour / kw) : 0;
 
       statKwhMonthly.innerText = `${Math.round(monthlyKwh).toLocaleString('en-US')} kWh`;
       statKwhPerHome.innerText = `${Math.round(monthlyKwhPerHome).toLocaleString('en-US')} kWh por vivienda / mes`;
@@ -690,16 +823,13 @@
       statTotalAnnual.innerText = `${formatMoney(annualTotal)} anuales`;
       statMaintYearCount.innerText = `~${annualMaintCount.toFixed(2)} servicios`;
 
-      // Recalcular tabla comparativa con los parámetros dinámicos de consumo y precio actuales
-      // 4h sin mtto
+      // Tabla comparativa
       const gasoil4h = 4 * litersHour * priceLiter * 30;
-      const total4hSinMtto = gasoil4h;
-      const fee4hSinMtto = total4hSinMtto / homes;
+      const fee4hSinMtto = gasoil4h / homes;
       tdGasoil4hSinMtto.innerText = formatMoney(gasoil4h);
-      tdTotal4hSinMtto.innerText = formatMoney(total4hSinMtto);
+      tdTotal4hSinMtto.innerText = formatMoney(gasoil4h);
       tdCuotaActual4hSinMtto.innerText = formatMoney(fee4hSinMtto);
 
-      // 4h con mtto
       const mtto4h = (4 * maintReservePerHour) * 30;
       const total4hConMtto = gasoil4h + mtto4h;
       const fee4hConMtto = total4hConMtto / homes;
@@ -708,7 +838,6 @@
       tdTotal4hConMtto.innerText = formatMoney(total4hConMtto);
       tdCuotaSostenible4h.innerText = formatMoney(fee4hConMtto);
 
-      // 6h habitual
       const gasoil6h = 6 * litersHour * priceLiter * 30;
       const mtto6h = (6 * maintReservePerHour) * 30;
       const total6h = gasoil6h + mtto6h;
@@ -718,7 +847,6 @@
       tdTotal6h.innerText = formatMoney(total6h);
       tdCuotaHabitual6h.innerText = formatMoney(fee6h);
 
-      // 7h crítico
       const gasoil7h = 7 * litersHour * priceLiter * 30;
       const mtto7h = (7 * maintReservePerHour) * 30;
       const total7h = gasoil7h + mtto7h;
@@ -728,14 +856,12 @@
       tdTotal7h.innerText = formatMoney(total7h);
       tdCuotaCritico7h.innerText = formatMoney(fee7h);
 
-      // Fila editable
       tdCustomHours.innerText = `${hoursDay.toFixed(1)} h`;
       tdCustomFuel.innerText = formatMoney(monthlyFuelCost);
       tdCustomMaint.innerText = formatMoney(monthlyMaintReserve);
       tdCustomTotal.innerText = formatMoney(monthlyTotal);
       tdCustomCuota.innerText = formatMoney(monthlyPerHome);
 
-      // Déficit contra el recaudo base actual de 4h sin mtto
       const currentRecaudo = gasoil4h;
       const deficit = monthlyTotal - currentRecaudo;
 
@@ -746,6 +872,79 @@
       } else {
         txtDeficitDetail.innerHTML = `La operación a ${hoursDay.toFixed(1)} horas/día genera un gasto mensual de ${formatMoney(monthlyTotal)}, inferior a la recaudación de 4 horas (${formatMoney(currentRecaudo)}).`;
       }
+    }
+
+    // GESTOR DE VENTANAS EMERGENTES (TOOLTIPS INTELIGENTES)
+    function setupTooltips() {
+      const targets = document.querySelectorAll('.has-tip');
+
+      targets.forEach(elem => {
+        const showTip = (e) => {
+          const title = elem.getAttribute('data-tip-title') || '';
+          const desc = elem.getAttribute('data-tip-desc') || '';
+          const formula = elem.getAttribute('data-tip-formula') || '';
+
+          if (!title && !desc) return;
+
+          tipTitle.innerText = title;
+          tipDesc.innerText = desc;
+
+          if (formula) {
+            tipFormula.innerText = formula;
+            tipFormulaBox.classList.remove('hidden');
+          } else {
+            tipFormulaBox.classList.add('hidden');
+          }
+
+          appTooltip.classList.remove('hidden');
+
+          // Posicionar sobre o cerca del elemento
+          const rect = elem.getBoundingClientRect();
+          const tipWidth = appTooltip.offsetWidth || 300;
+          const tipHeight = appTooltip.offsetHeight || 140;
+
+          let top = rect.top - tipHeight - 10;
+          let left = rect.left + (rect.width / 2) - (tipWidth / 2);
+
+          // Si se sale por arriba, colocarlo debajo
+          if (top < 15) {
+            top = rect.bottom + 10;
+          }
+
+          // Si se sale por la izquierda o derecha
+          if (left < 15) left = 15;
+          if (left + tipWidth > window.innerWidth - 15) {
+            left = window.innerWidth - tipWidth - 15;
+          }
+
+          appTooltip.style.top = `${top}px`;
+          appTooltip.style.left = `${left}px`;
+        };
+
+        const hideTip = () => {
+          appTooltip.classList.add('hidden');
+        };
+
+        elem.addEventListener('mouseenter', showTip);
+        elem.addEventListener('mouseleave', hideTip);
+        elem.addEventListener('click', (e) => {
+          if (appTooltip.classList.contains('hidden')) {
+            showTip(e);
+          } else {
+            hideTip();
+          }
+        });
+      });
+
+      // Cerrar al tocar fuera
+      document.addEventListener('touchstart', (e) => {
+        if (!e.target.closest('.has-tip') && !e.target.closest('#appTooltip')) {
+          appTooltip.classList.add('hidden');
+        }
+      });
+      window.addEventListener('scroll', () => {
+        appTooltip.classList.add('hidden');
+      }, { passive: true });
     }
 
     // Eventos
@@ -832,6 +1031,7 @@
 
     // Inicializar
     onKwChanged();
+    setupTooltips();
   </script>
 </body>
 </html>
